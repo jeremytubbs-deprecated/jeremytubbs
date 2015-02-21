@@ -4,8 +4,8 @@ Route::get('/', ['as' => 'pages.home', 'uses' => 'PagesController@home']);
 
 Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
 
-// Route::get('contact', ['as' => 'contact', 'uses' => 'ContactController@getContact']);
-// Route::post('contact', ['as' => 'postContact', 'uses' => 'ContactController@postContact']);
+Route::get('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@getContact']);
+Route::post('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@postContact']);
 
 // Route::get('about', ['as' => 'about', 'uses' => 'PageControler@about']);
 
