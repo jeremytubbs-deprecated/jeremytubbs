@@ -22,5 +22,5 @@ Route::post('login', 'Auth\AuthController@postLogin');
 Route::get('logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@getLogout']);
 Route::get('password/forgot', 'Auth\PasswordController@getEmail');
 Route::post('password/forgot', 'Auth\PasswordController@postEmail');
-Route::get('password/reset', 'Auth\PasswordController@getReset');
-Route::post('password/reset', 'Auth\PasswordController@postReset');
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset/{token}', 'Auth\PasswordController@postReset');
