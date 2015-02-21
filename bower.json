@@ -1,0 +1,20 @@
+{
+  "name": "jeremytubbs",
+  "version": "",
+  "authors": [
+    "Jeremy Tubbs"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "latest",
+    "jquery": "latest"
+  }
+}
