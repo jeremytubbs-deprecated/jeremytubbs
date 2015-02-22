@@ -8,11 +8,16 @@ Route::get('about', ['as' => 'pages.about', 'uses' => 'PageControler@about']);
 Route::get('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@getContact']);
 Route::post('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@postContact']);
 
+// posts pages
+Route::resource('posts', 'PostsController', ['only' => 'index', 'show']);
+
 // admin pages
-Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
+Route::group(['middleware' => 'auth'], function()
+{
+	Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
+	Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+});
 
-
-Route::resource('posts', 'PostsController');
 // Route::resource('projects', 'ProjectsController');
 // Route::get('tags/{tag}', 'TagsController@index');
 
