@@ -12,7 +12,7 @@ Route::post('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@po
 Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
 
 
-Route::resource('posts', 'PostController');
+Route::resource('posts', 'PostsController');
 // Route::resource('projects', 'ProjectsController');
 // Route::get('tags/{tag}', 'TagsController@index');
 

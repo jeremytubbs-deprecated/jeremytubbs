@@ -1,0 +1,56 @@
+/* Editor */
+.CodeMirror,
+.editor {
+	height: auto !important;
+	position: absolute;
+	overflow: auto;
+}
+
+.CodeMirror {
+	padding: 0 15px;
+	overflow: hidden;
+}
+
+.editor {
+	position: absolute;
+	top: 115px;
+	left: 0px;
+	right: 0;
+	bottom: 70px;
+	border-right: 2px #eee solid;
+}
+
+.preview {
+	position: absolute;
+	left: 50%;
+	top: 115px;
+	bottom: 55px;
+	overflow: auto;
+}
+
+.editor-output {
+	padding: 0 15px;
+}
+
+/* Footer */
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	background-color: #f5f5f5;
+}
+
+.text-muted {
+	margin: 20px 0;
+}
+
+footer .btn {
+	margin-top: 13px;
+}

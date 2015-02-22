@@ -47,7 +47,7 @@ postsApp.directive('commonmark', function () {
 
 //commonmark filter
 postsApp.filter('commonmark', function ($sce) {
-    var reader = commonmark.DocParser();
+    var reader = new commonmark.Parser();
     var writer = new commonmark.HtmlRenderer();
     return function (value) {
         var html = writer.render(reader.parse(value || ''));
