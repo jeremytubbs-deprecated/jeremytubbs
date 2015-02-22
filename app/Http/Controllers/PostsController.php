@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Post;
 
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		return view('posts.index');
+		$posts = Post::all();
+		return view('posts.index', compact('posts'));
 	}
 
 	/**
@@ -32,9 +34,29 @@ class PostsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$input = [
+			'title' => $request->get('title'),
+			'markdown' => $request->get('commonmark'),
+			'status' => $request->get('status')
+		];
+
+		$post = new Post();
+		$post->user_id = \Auth::user()->id;
+		$post->title = $input['title'];
+		$post->slug = $input['title'];
+		$post->markdown = $input['markdown'];
+		if($input['status'] == 'true') {
+			$post->published_at = time();
+			$message = $input['title'] . ' published.';
+		} else {
+			$message = $input['title'] . ' saved.';
+		}
+		$post->status = $input['status'] == 'true' ? 1 : 0;
+		$post->save();
+
+		return redirect()->to('posts');
 	}
 
 	/**
