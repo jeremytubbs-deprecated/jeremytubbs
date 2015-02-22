@@ -7,9 +7,9 @@ class Tag extends Model {
 
 	protected $fillable = [];
 
-	public function users()
+	public function posts()
     {
-        return $this->belongsToMany('Post');
+        return $this->belongsToMany('App\Post');
     }
 
     public function setSlugAttribute($title)

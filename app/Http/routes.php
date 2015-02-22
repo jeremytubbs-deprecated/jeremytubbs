@@ -12,7 +12,7 @@ Route::post('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@po
 Route::resource('posts', 'PostsController', ['only' => 'index', 'show']);
 
 // admin pages
-Route::group(['middleware' => 'auth'], function()
+Route::group(['middleware' => 'admin'], function()
 {
 	Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
 	Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);

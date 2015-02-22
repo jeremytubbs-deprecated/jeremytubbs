@@ -9,7 +9,7 @@ class Post extends Model {
 	protected $dates = ['published_at'];
 
 	public function tags() {
-        return $this->belongsToMany('Tag');
+        return $this->belongsToMany('App\Tag');
     }
 
 	public function setSlugAttribute($title)
@@ -27,5 +27,4 @@ class Post extends Model {
 		if($this->status = 1) return 'Publish';
 		return 'Save Draft';
 	}
-
 }
