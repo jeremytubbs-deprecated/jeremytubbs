@@ -2,4 +2,4 @@
 
 @section('content')
 	About
-@stop
+@endsection

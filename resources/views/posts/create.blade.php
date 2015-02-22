@@ -1,5 +1,12 @@
 @extends('app')
 
+@section('ngApp')
+<body ng-app="postsApp">
+@endsection
+
 @section('content')
 	post create
-@stop
+@endsection
+
+@section('scripts')
+@endsection

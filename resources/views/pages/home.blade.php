@@ -2,4 +2,4 @@
 
 @section('content')
 	Homepage
-@stop
+@endsection

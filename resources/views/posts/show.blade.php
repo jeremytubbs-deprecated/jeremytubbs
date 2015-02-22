@@ -2,4 +2,4 @@
 
 @section('content')
 	post show
-@stop
+@endsection
