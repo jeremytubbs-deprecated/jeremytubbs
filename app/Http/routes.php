@@ -1,18 +1,20 @@
 <?php
 
+// pages
 Route::get('/', ['as' => 'pages.home', 'uses' => 'PagesController@home']);
+Route::get('about', ['as' => 'pages.about', 'uses' => 'PageControler@about']);
 
-Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
-
+// contact
 Route::get('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@getContact']);
 Route::post('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@postContact']);
 
-// Route::get('about', ['as' => 'about', 'uses' => 'PageControler@about']);
+// admin pages
+Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
 
-// Route::resource('posts', 'PostController');
-// Route::resource('portfolio', 'PortfolioController');
-// Route::get('styles/{tag}', 'PortfolioController@getByStyle');
 
+Route::resource('posts', 'PostController');
+// Route::resource('projects', 'ProjectsController');
+// Route::get('tags/{tag}', 'TagsController@index');
 
 // routes for auth
 Route::get('register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister']);
