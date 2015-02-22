@@ -1,13 +1,11 @@
 @extends('app')
 
 @section('content')
-	<div class="row">
-		<div class="col-md-offset-2 col-md-8">
-			<h1>Contact.</h1>
-		</div>
-	</div>
+<div class="row">
+	<div class="col-md-offset-3 col-md-6">
+		<h1>Contact.</h1>
 
-	@if (count($errors) > 0)
+		@if (count($errors) > 0)
 		<div class="alert alert-danger">
 			<strong>Whoops!</strong> There were some problems with your input.<br><br>
 			<ul>
@@ -16,23 +14,21 @@
 				@endforeach
 			</ul>
 		</div>
-	@endif
+		@endif
 
-	{!! Form::open(array('route' => 'pages.contact', 'id' => 'contact-form')) !!}
-	<div class="row">
-		<div class="col-md-offset-2 col-md-8">
+		{!! Form::open(array('route' => 'pages.contact', 'id' => 'contact-form')) !!}
 			<div class="form-group">
-				<input type="text" name="name" class="form-control" placeholder="Your Name" value="{{ Input::old('name') }}" required>
+				<input type="text" name="name" class="form-control" placeholder="Your Name" value="{{ old('name') }}" required>
 			</div>
 			<div class="form-group">
-				<input type="email" name="email" class="form-control" placeholder="email@example.com" value="{{ Input::old('email') }}" required>
+				<input type="email" name="email" class="form-control" placeholder="email@example.com" value="{{ old('email') }}" required>
 			</div>
 			<div class="form-group">
-				<textarea class="form-control" name="message" rows="4" placeholder="Your Message..." required>{{ Input::old('message') }}</textarea>
+				<textarea class="form-control" name="message" rows="6" placeholder="Your Message..." required>{{ old('message') }}</textarea>
 			</div>
 
-			<button class="btn btn-default pull-right" type="submit">Send Message</button>
-		</div>
+			<button class="btn pull-right" type="submit">Send Message</button>
+		{!! Form::close() !!}
 	</div>
-	{!! Form::close() !!}
-@stop
+</div>
+@endsection
