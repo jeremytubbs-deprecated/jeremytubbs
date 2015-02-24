@@ -27,7 +27,8 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		return view('posts.create');
+		$tags = Tag::lists('name', 'id');
+		return view('posts.create', compact('tags'));
 	}
 
 	/**
@@ -102,12 +103,6 @@ class PostsController extends Controller {
 	public function destroy($id)
 	{
 		//
-	}
-
-	public function tags()
-	{
-		$tags = Tag::lists('name');
-		return \Response::json($tags);
 	}
 
 }

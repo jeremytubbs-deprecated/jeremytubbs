@@ -18,11 +18,6 @@ Route::group(['middleware' => 'admin'], function()
 	Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
 });
 
-Route::group(['prefix' => 'api'], function(){
-	Route::get('/tags', 'PostsController@tags');
-});
-
-
 // Route::resource('projects', 'ProjectsController');
 // Route::get('tags/{tag}', 'TagsController@index');
 

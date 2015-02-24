@@ -1,5 +1,4 @@
-var tagsService = angular.module('tagsService', []);
-var postsApp = angular.module('postsApp', ['ui.codemirror', 'ui.select', 'tagsService']);
+var postsApp = angular.module('postsApp', ['ui.codemirror']);
 
 postsApp.controller('EditorController', ['$scope', '$window', function($scope, $window) {
     //codemirror editor settings
@@ -21,23 +20,12 @@ postsApp.controller('EditorController', ['$scope', '$window', function($scope, $
     };
 }]);
 
-tagsService.factory('Tags', ['$http', function($http) {
-    return {
-        // get all the comments
-        get : function() {
-            return $http.get('/api/tags');
-        }
-    }
-}]);
 
-postsApp.controller('FooterController', ['$scope', '$http', 'Tags', function($scope, $http, Tags) {
+postsApp.controller('FooterController', ['$scope', '$http', function($scope, $http) {
     //set defaults for publish status
     $scope.init = function(text, status) {
         $scope.submitText = text;
         $scope.submitStatus = status;
-        Tags.get().success(function(data) {
-            $scope.allTags = data;
-        });
     }
     //toggle the publish status value
     $scope.updateSubmit = function(value) {
@@ -67,4 +55,9 @@ postsApp.filter('commonmark', function ($sce) {
         var html = writer.render(reader.parse(value || ''));
         return $sce.trustAsHtml(html);
     };
+});
+
+
+$(document).ready(function () {
+
 });

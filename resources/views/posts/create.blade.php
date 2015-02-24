@@ -33,7 +33,7 @@
 	<div class="container-fluid">
 		<div class="row" ng-controller="FooterController" ng-init="init('Save Draft', false)">
 			<div class="col-md-10">
-				Tags: @{{ allTags }}
+				{!! Form::select('tags[]', $tags, null, ['id' => 'tag-list', 'class' => 'form-control', 'multiple']) !!}
 			</div>
 			<div class="col-md-2">
 				<div class="btn-group pull-right dropup">
@@ -62,7 +62,7 @@
 
 @section('styles')
 	<link href="/css/posts/codemirror.css" rel="stylesheet">
-	<link href="/css/posts/ui-select.css" rel="stylesheet">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/css/select2.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
@@ -70,6 +70,11 @@
 	<script src="/js/apps/postsApp.js"></script>
 	<script src="/js/posts/codemirror.js"></script>
 	<script src="/js/posts/ui-codemirror.js"></script>
-	<script src="/js/posts/ui-select.js"></script>
 	<script src="/js/posts/commonmark.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
+	<script>
+		$('#tag-list').select2({
+			tags: true
+		});
+	</script>
 @endsection
