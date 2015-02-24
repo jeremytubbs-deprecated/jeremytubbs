@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Tag;
 
 use Illuminate\Http\Request;
 
@@ -101,6 +102,12 @@ class PostsController extends Controller {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function tags()
+	{
+		$tags = Tag::lists('name');
+		return \Response::json($tags);
 	}
 
 }

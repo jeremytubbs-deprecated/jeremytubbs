@@ -32,7 +32,10 @@
 <footer class="footer">
 	<div class="container-fluid">
 		<div class="row" ng-controller="FooterController" ng-init="init('Save Draft', false)">
-			<div class="col-md-12">
+			<div class="col-md-10">
+				Tags: @{{ allTags }}
+			</div>
+			<div class="col-md-2">
 				<div class="btn-group pull-right dropup">
 					<button type="submit" class="btn btn-danger" ng-show="submitStatus"><span ng-bind="submitText"></span></button>
 					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" ng-show="submitStatus">
@@ -59,6 +62,7 @@
 
 @section('styles')
 	<link href="/css/posts/codemirror.css" rel="stylesheet">
+	<link href="/css/posts/ui-select.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
@@ -66,5 +70,6 @@
 	<script src="/js/apps/postsApp.js"></script>
 	<script src="/js/posts/codemirror.js"></script>
 	<script src="/js/posts/ui-codemirror.js"></script>
+	<script src="/js/posts/ui-select.js"></script>
 	<script src="/js/posts/commonmark.js"></script>
 @endsection

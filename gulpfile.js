@@ -18,6 +18,7 @@ var paths = {
 	'commonmark': './vendor/bower_components/commonmark/',
 	'angular': './vendor/bower_components/angular/',
 	'ngCodemirror': './vendor/bower_components/angular-ui-codemirror/',
+    'ngSelect': './vendor/bower_components/angular-ui-select/'
 }
 
 // only move files to public for now; minify later
@@ -31,6 +32,8 @@ elixir(function(mix) {
     .copy(paths.commonmark + 'dist/commonmark.js', 'public/js/posts/commonmark.js')
     .copy(paths.angular + 'angular.js', 'public/js/angular/angular.js')
     .copy(paths.ngCodemirror + 'ui-codemirror.js', 'public/js/posts/ui-codemirror.js')
+    .copy(paths.ngSelect + 'dist/select.js', 'public/js/posts/ui-select.js')
+    .copy(paths.ngSelect + 'dist/select.css', 'public/css/posts/ui-select.css')
     .copy('./resources/assets/js/postsApp.js', 'public/js/apps/postsApp.js')
     .sass('main.scss');
 });
