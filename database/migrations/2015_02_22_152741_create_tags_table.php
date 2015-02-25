@@ -16,6 +16,7 @@ class CreateTagsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name')->unique();
+			$table->string('slug')->unique();
 			$table->string('description')->nullable();
 			$table->string('image')->nullable();
 			$table->string('meta_title')->nullable();

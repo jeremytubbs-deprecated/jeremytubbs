@@ -12,11 +12,10 @@ class Tag extends Model {
         return $this->belongsToMany('App\Post');
     }
 
-    public function setSlugAttribute($title)
+    public function setSlugAttribute($name)
     {
-        $slug = Str::slug($title);
-    	$slugCount = count($this->whereRaw("slug REGEXP '^{$slug}(-[0-9]*)?$'")->get());
-    	$this->attributes['slug'] = ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
+        $slug = Str::slug($name);
+    	$this->attributes['slug'] = $slug;
     }
 
 }

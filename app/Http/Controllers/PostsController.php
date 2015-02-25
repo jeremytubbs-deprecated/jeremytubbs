@@ -45,12 +45,14 @@ class PostsController extends Controller {
 		];
 
 		$tags = $request->get('tags');
+
 		foreach($tags as $key => $tag)
 		{
 			if (! is_numeric($tag))
 			{
 				$newTag = new Tag();
 				$newTag->name = $tag;
+				$newTag->slug = $tag;
 				$newTag->save();
 				$tags[$key] = $newTag->id;
 			}
