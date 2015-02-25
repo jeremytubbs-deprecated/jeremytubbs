@@ -32,10 +32,12 @@
 <footer class="footer">
 	<div class="container-fluid">
 		<div class="row" ng-controller="FooterController" ng-init="init('Save Draft', false)">
-			<div class="col-md-10">
+			<div class="col-md-8" style="margin-top: 13px; height: 19px;">
+				<div class="form-group">
 				{!! Form::select('tags[]', $tags, null, ['id' => 'tag-list', 'class' => 'form-control', 'multiple']) !!}
+				</div>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-4">
 				<div class="btn-group pull-right dropup">
 					<button type="submit" class="btn btn-danger" ng-show="submitStatus"><span ng-bind="submitText"></span></button>
 					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" ng-show="submitStatus">

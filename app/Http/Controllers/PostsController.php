@@ -44,6 +44,18 @@ class PostsController extends Controller {
 			'status' => $request->get('status')
 		];
 
+		$tags = $request->get('tags');
+		foreach($tags as $key => $tag)
+		{
+			if (! is_numeric($tag))
+			{
+				$newTag = new Tag();
+				$newTag->name = $tag;
+				$newTag->save();
+				$tags[$key] = $newTag->id;
+			}
+		}
+
 		$post = new Post();
 		$post->user_id = \Auth::user()->id;
 		$post->title = $input['title'];
@@ -57,6 +69,8 @@ class PostsController extends Controller {
 		}
 		$post->status = $input['status'] == 'true' ? 1 : 0;
 		$post->save();
+
+		$post->tags()->attach($tags);
 
 		return redirect()->to('posts');
 	}
