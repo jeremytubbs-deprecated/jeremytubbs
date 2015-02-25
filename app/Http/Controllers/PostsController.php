@@ -55,8 +55,14 @@ class PostsController extends Controller {
 				$newTag->slug = $tag;
 				$newTag->save();
 				$tags[$key] = $newTag->id;
+			} else {
+				$thisTag = Tag::find($tag);
+				$thisTag->count = $tag;
+				$thisTag->save();
 			}
 		}
+
+
 
 		$post = new Post();
 		$post->user_id = \Auth::user()->id;

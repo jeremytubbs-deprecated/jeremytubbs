@@ -18,4 +18,10 @@ class Tag extends Model {
     	$this->attributes['slug'] = $slug;
     }
 
+    public function setCountAttribute($id)
+    {
+        $count = count(\DB::table('post_tag')->where('tag_id', '=', $id)->get());
+        $this->attributes['count'] = $count + 1;
+    }
+
 }
