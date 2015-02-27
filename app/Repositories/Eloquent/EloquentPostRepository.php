@@ -5,8 +5,21 @@ use App\Post;
 use App\Repositories\PostRepository;
 use App\Repositories\Eloquent\EloquentBaseRepository;
 
-class EloquentPostRepository extends EloquentBaseRepository implements PostRepository
+class EloquentPostRepository extends EloquentBaseRepository
 {
+    /**
+     * @var Model An instance of the Eloquent Model
+     */
+    protected $model;
+
+    /**
+     * @param Model $model
+     */
+    public function __construct(Post $model)
+    {
+        $this->model = $model;
+    }
+
     /**
      * @param  int    $id
      * @return object

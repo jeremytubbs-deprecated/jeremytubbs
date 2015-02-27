@@ -28,11 +28,8 @@ class AppServiceProvider extends ServiceProvider {
 		$this->app->bind(
 			'Illuminate\Contracts\Auth\Registrar',
 			'App\Services\Registrar',
-			'App\Repositories\BaseRepository',
 			'App\Repositories\Eloquent\EloquentBaseRepository',
-			'App\Repositories\PostRepository',
 			'App\Repositories\Eloquent\EloquentPostRepository',
-			'App\Repositories\TagRepository',
 			'App\Repositories\Eloquent\EloquentTagRepository'
 		);
 	}

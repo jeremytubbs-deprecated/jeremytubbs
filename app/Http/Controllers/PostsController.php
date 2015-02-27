@@ -2,13 +2,23 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Repositories\PostRepository;
+use App\Repositories\Eloquent\EloquentPostRepository;
 use App\Post;
 use App\Tag;
 
 use Illuminate\Http\Request;
 
 class PostsController extends Controller {
+
+    /**
+     * @var PostRepository
+     */
+    private $post;
+
+	public function __construct(EloquentPostRepository $post)
+    {
+        $this->post = $post;
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -17,7 +27,8 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::all();
+		$posts = $this->post->all();
+		dd($posts);
 		return view('posts.index', compact('posts'));
 	}
 

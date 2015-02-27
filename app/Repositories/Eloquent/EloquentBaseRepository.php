@@ -8,21 +8,8 @@ use App\Repositories\BaseRepository;
  *
  * @package Modules\Core\Repositories\Eloquent
  */
-abstract class EloquentBaseRepository implements BaseRepository
+abstract class EloquentBaseRepository
 {
-    /**
-     * @var Model An instance of the Eloquent Model
-     */
-    protected $model;
-
-    /**
-     * @param Model $model
-     */
-    public function __construct($model)
-    {
-        $this->model = $model;
-    }
-
     /**
      * @param  int    $id
      * @return object
