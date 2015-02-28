@@ -29,7 +29,7 @@
 @endsection
 
 @section('footer')
-<footer class="footer">
+<div class="footer-menu">
 	<div class="container-fluid">
 		<div class="row" ng-controller="FooterController" ng-init="init('Save Draft', false)">
 			<div class="col-md-8" style="margin-top: 13px; height: 19px;">
@@ -58,7 +58,12 @@
 			</div>
 		</div>
 	</div>
-</footer>
+</div>
+<div class="footer-lower">
+	<div class="container-fluid">
+ 		Meta Fields and Uploads
+ 	</div>
+</div>
 {!! Form::close() !!}
 @endsection
 

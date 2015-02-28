@@ -57,7 +57,3 @@ postsApp.filter('commonmark', function ($sce) {
     };
 });
 
-
-$(document).ready(function () {
-
-});
