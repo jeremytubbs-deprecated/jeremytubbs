@@ -62,6 +62,9 @@
 <div class="footer-lower">
 	<div class="container-fluid">
  		Meta Fields and Uploads
+ 		<div class="row">
+
+ 		</div>
  	</div>
 </div>
 {!! Form::close() !!}

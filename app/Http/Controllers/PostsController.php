@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquent\EloquentPostRepository;
+use App\Repositories\Eloquent\EloquentTagRepository;
 use App\Post;
 use App\Tag;
 
@@ -15,9 +16,10 @@ class PostsController extends Controller {
      */
     private $post;
 
-	public function __construct(EloquentPostRepository $post)
+	public function __construct(EloquentPostRepository $post, EloquentTagRepository $tag)
     {
         $this->post = $post;
+        $this->tag = $tag;
     }
 
 	/**
@@ -28,7 +30,6 @@ class PostsController extends Controller {
 	public function index()
 	{
 		$posts = $this->post->all();
-		dd($posts);
 		return view('posts.index', compact('posts'));
 	}
 
@@ -39,7 +40,7 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		$tags = Tag::lists('name', 'id');
+		$tags = $this->tag->tagList();
 		return view('posts.create', compact('tags'));
 	}
 
@@ -57,24 +58,7 @@ class PostsController extends Controller {
 		];
 
 		$tags = $request->get('tags');
-
-		foreach($tags as $key => $tag)
-		{
-			if (! is_numeric($tag))
-			{
-				$newTag = new Tag();
-				$newTag->name = $tag;
-				$newTag->slug = $tag;
-				$newTag->save();
-				$tags[$key] = $newTag->id;
-			} else {
-				$thisTag = Tag::find($tag);
-				$thisTag->count = $tag;
-				$thisTag->save();
-			}
-		}
-
-
+		$tags = $this->tag->createOrUpdate($tags);
 
 		$post = new Post();
 		$post->user_id = \Auth::user()->id;

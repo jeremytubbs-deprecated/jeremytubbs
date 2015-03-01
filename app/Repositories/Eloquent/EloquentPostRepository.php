@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Eloquent\Builder;
 use App\Post;
-use App\Repositories\PostRepository;
 use App\Repositories\Eloquent\EloquentBaseRepository;
 
 class EloquentPostRepository extends EloquentBaseRepository
