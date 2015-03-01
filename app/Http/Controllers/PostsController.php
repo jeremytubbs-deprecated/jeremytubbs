@@ -54,27 +54,15 @@ class PostsController extends Controller {
 		$input = [
 			'title' => $request->get('title'),
 			'markdown' => $request->get('commonmark'),
-			'status' => $request->get('status')
+			'status' => $request->get('status') == 'true' ? 1 : 0,
+			'tags' => $request->get('tags')
 		];
 
-		$tags = $request->get('tags');
-		$tags = $this->tag->createOrUpdate($tags);
-
-		$post = new Post();
-		$post->user_id = \Auth::user()->id;
-		$post->title = $input['title'];
-		$post->slug = $input['title'];
-		$post->markdown = $input['markdown'];
-		if($input['status'] == 'true') {
-			$post->published_at = time();
-			$message = $input['title'] . ' published.';
-		} else {
-			$message = $input['title'] . ' saved.';
+		if ( isset($input['tags']) ) {
+			$input['tags'] = $this->tag->createOrUpdate($input['tags']);
 		}
-		$post->status = $input['status'] == 'true' ? 1 : 0;
-		$post->save();
 
-		$post->tags()->attach($tags);
+		$this->post->create($input);
 
 		return redirect()->to('posts');
 	}

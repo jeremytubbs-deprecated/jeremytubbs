@@ -53,11 +53,21 @@ class EloquentPostRepository extends EloquentBaseRepository
      * @param  array $data
      * @return Post
      */
-    public function create($data)
+    public function create($input)
     {
-        $post = $this->model->create($data);
-        if (isset($data['tags'])) {
-            $post->tags()->sync($data['tags']);
+        $post = new Post();
+        $post->user_id = \Auth::user()->id;
+        $post->title = $input['title'];
+        $post->slug = $input['title'];
+        $post->markdown = $input['markdown'];
+        $post->status = $input['status'];
+        if( $input['status'] ) {
+            $post->published_at = time();
+        }
+        $post->save();
+
+        if ( isset($input['tags']) ) {
+            $post->tags()->sync($input['tags']);
         }
         return $post;
     }
