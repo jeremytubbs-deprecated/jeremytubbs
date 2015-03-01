@@ -34,7 +34,7 @@
 		<div class="row" ng-controller="FooterController" ng-init="init('Save Draft', false)">
 			<div class="col-md-8" style="margin-top: 13px; height: 19px;">
 				<div class="form-group">
-				{!! Form::select('tags[]', $tags, null, ['id' => 'tag-list', 'class' => 'form-control', 'multiple']) !!}
+				{!! Form::select('tag_list[]', $tags, null, ['id' => 'tag-list', 'class' => 'form-control', 'multiple']) !!}
 				</div>
 			</div>
 			<div class="col-md-4">

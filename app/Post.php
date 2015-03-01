@@ -27,4 +27,8 @@ class Post extends Model {
 		if($this->status = 1) return 'Publish';
 		return 'Save Draft';
 	}
+
+	public function getTagListAttribute() {
+		return $this->tags->lists('id');
+	}
 }

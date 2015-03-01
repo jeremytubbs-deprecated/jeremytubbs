@@ -2,21 +2,21 @@
 
 // pages
 Route::get('/', ['as' => 'pages.home', 'uses' => 'PagesController@home']);
-Route::get('about', ['as' => 'pages.about', 'uses' => 'PageControler@about']);
+Route::get('about', ['as' => 'pages.about', 'uses' => 'PagesController@about']);
 
 // contact
 Route::get('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@getContact']);
 Route::post('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@postContact']);
 
-// posts pages
-Route::resource('posts', 'PostsController', ['only' => 'index', 'show']);
-
 // admin pages
-Route::group(['middleware' => 'admin'], function()
+Route::group(['middleware' => ['auth', 'admin']], function()
 {
 	Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
 	Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
 });
+
+// posts pages
+Route::resource('posts', 'PostsController', ['only' => ['index', 'show']]);
 
 // Route::resource('projects', 'ProjectsController');
 // Route::get('tags/{tag}', 'TagsController@index');

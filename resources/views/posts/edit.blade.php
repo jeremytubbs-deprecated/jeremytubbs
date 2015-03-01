@@ -34,7 +34,7 @@
 		<div class="row" ng-controller="FooterController" ng-init="init('{{$post->publishedText}}', {{$post->published}})">
 			<div class="col-md-8" style="margin-top: 13px; height: 19px;">
 				<div class="form-group">
-				{!! Form::select('tags[]', $tags, null, ['id' => 'tag-list', 'class' => 'form-control', 'multiple']) !!}
+				{!! Form::select('tag_list[]', $tags, $post->tagList, ['id' => 'tag-list', 'class' => 'form-control', 'multiple']) !!}
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -69,6 +69,7 @@
 
 @section('styles')
 	<link href="/css/posts/codemirror.css" rel="stylesheet">
+	<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/css/select2.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
@@ -77,4 +78,10 @@
 	<script src="/js/posts/codemirror.js"></script>
 	<script src="/js/posts/ui-codemirror.js"></script>
 	<script src="/js/posts/commonmark.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
+	<script>
+		$('#tag-list').select2({
+			tags: true
+		});
+	</script>
 @endsection

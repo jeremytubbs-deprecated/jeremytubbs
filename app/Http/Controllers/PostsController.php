@@ -55,7 +55,7 @@ class PostsController extends Controller {
 			'title' => $request->get('title'),
 			'markdown' => $request->get('commonmark'),
 			'status' => $request->get('status') == 'true' ? 1 : 0,
-			'tags' => $request->get('tags')
+			'tags' => $request->get('tag_list')
 		];
 
 		if ( isset($input['tags']) ) {
@@ -75,7 +75,8 @@ class PostsController extends Controller {
 	 */
 	public function show($id)
 	{
-		return view('posts.show');
+		$posts = $this->post->find($id);
+		return view('posts.show', compact('posts'));
 	}
 
 	/**
@@ -86,8 +87,9 @@ class PostsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$post = Post::find($id);
-		return view('posts.edit', compact('post'));
+		$post = $this->post->find($id);
+		$tags = $this->tag->tagList();
+		return view('posts.edit', compact('post', 'tags'));
 	}
 
 	/**
