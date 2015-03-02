@@ -25,7 +25,7 @@ class EloquentPostRepository extends EloquentBaseRepository
      */
     public function find($id)
     {
-        return $this->model->with('tags')->find($id);
+        return $this->model->with('tags')->findOrFail($id);
     }
     /**
      * @return \Illuminate\Database\Eloquent\Collection
@@ -40,9 +40,18 @@ class EloquentPostRepository extends EloquentBaseRepository
      * @param  array $data
      * @return mixed
      */
-    public function update($post, $data)
+    public function update($id, $input)
     {
-        $post->update($data);
+        $post = Post::find($id);
+        $post->user_id = \Auth::user()->id;
+        $post->title = $input['title'];
+        $post->slug = $input['title'];
+        $post->markdown = $input['markdown'];
+        $post->status = $input['status'];
+        if( $input['status'] ) {
+            $post->published_at = time();
+        }
+        $post->save();
         if (isset($data['tags'])) {
             $post->tags()->sync($data['tags']);
         }

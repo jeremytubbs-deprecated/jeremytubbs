@@ -44,17 +44,18 @@ class EloquentTagRepository extends EloquentBaseRepository
         {
             if (! is_numeric($tag))
             {
-                $newTag = new Tag();
-                $newTag->name = $tag;
-                $newTag->slug = $tag;
-                $newTag->save();
+                $newTag = $this->create($tag);
                 $tags[$key] = $newTag->id;
-            } else {
-                $thisTag = $this->model->find($tag);
-                $thisTag->count = $tag;
-                $thisTag->save();
             }
         }
         return $tags;
+    }
+
+    public function create($tag) {
+        $newTag = new Tag();
+        $newTag->name = $tag;
+        $newTag->slug = $tag;
+        $newTag->save();
+        return $newTag;
     }
 }

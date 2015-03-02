@@ -21,7 +21,6 @@ class CreateTagsTable extends Migration {
 			$table->string('image')->nullable();
 			$table->string('meta_title')->nullable();
 			$table->string('meta_description')->nullable();
-			$table->integer('count')->unsigned()->default(1);
 			$table->timestamps();
 		});
 	}
