@@ -61,11 +61,19 @@
 </div>
 <div class="footer-lower">
 	<div class="container-fluid">
- 		Meta Fields and Uploads
- 		<div class="row">
-
- 		</div>
- 	</div>
+		Meta Fields and Uploads
+		<div class="row">
+			<div class="col-md-4">
+				<div class="fileinput fileinput-new" data-provides="fileinput">
+					<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+					<div>
+						<span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+						<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {!! Form::close() !!}
 @endsection
@@ -81,6 +89,8 @@
 	<script src="/js/posts/codemirror.js"></script>
 	<script src="/js/posts/ui-codemirror.js"></script>
 	<script src="/js/posts/commonmark.js"></script>
+	<script src="/js/posts/commonmark.js"></script>
+	<script src="/js/posts/jasny-file-input.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
 	<script>
 		$('#tag-list').select2({

@@ -34,6 +34,7 @@ elixir(function(mix) {
     .copy(paths.ngCodemirror + 'ui-codemirror.js', 'public/js/posts/ui-codemirror.js')
     .copy(paths.ngSelect + 'angular-selectize.js', 'public/js/posts/angular-selectize.js')
     .copy('./resources/assets/js/postsApp.js', 'public/js/apps/postsApp.js')
+    .copy('./resources/assets/js/jasny-file-input.js', 'public/js/posts/jasny-file-input.js')
     .sass('main.scss');
 });
 
