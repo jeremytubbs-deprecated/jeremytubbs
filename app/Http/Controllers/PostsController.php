@@ -27,7 +27,7 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		$tags = $this->tag->tagList();
+		$tags = Tag::lists('name', 'id');
 		return view('posts.create', compact('tags'));
 	}
 
@@ -41,15 +41,39 @@ class PostsController extends Controller {
 		$input = [
 			'title' => $request->get('title'),
 			'markdown' => $request->get('commonmark'),
-			'status' => $request->get('status') == 'true' ? 1 : 0,
-			'tags' => $request->get('tag_list')
+			'status' => $request->get('status') == 'true' ? 1 : 0
 		];
 
-		if ( isset($input['tags']) ) {
-			$input['tags'] = $this->tag->createOrUpdate($input['tags']);
+		$tags = $request->get('tag_list');
+
+		if ( isset($tags) ) {
+			foreach($tags as $key => $tag)
+			{
+				if (! is_numeric($tag))
+				{
+					$newTag = new Tag();
+			        $newTag->name = $tag;
+			        $newTag->slug = $tag;
+			        $newTag->save();
+					$tags[$key] = $newTag->id;
+				}
+			}
 		}
 
-		$this->post->create($input);
+		$post = new Post();
+		$post->user_id = \Auth::user()->id;
+		$post->title = $input['title'];
+		$post->slug = $input['title'];
+		$post->markdown = $input['markdown'];
+		$post->status = $input['status'];
+		if( $input['status'] ) {
+			$post->published_at = time();
+		}
+		$post->save();
+
+		if (isset($tags)) {
+			$post->tags()->sync($tags);
+		}
 
 		return redirect()->to('posts');
 	}
@@ -71,10 +95,9 @@ class PostsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Post $post)
 	{
-		$post = $this->post->find($id);
-		$tags = $this->tag->tagList();
+		$tags = Tag::lists('name', 'id');
 		return view('posts.edit', compact('post', 'tags'));
 	}
 
@@ -84,20 +107,42 @@ class PostsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request)
+	public function update(Request $request, Post $post)
 	{
 		$input = [
 			'title' => $request->get('title'),
 			'markdown' => $request->get('commonmark'),
-			'status' => $request->get('status') == 'true' ? 1 : 0,
-			'tags' => $request->get('tag_list')
+			'status' => $request->get('status') == 'true' ? 1 : 0
 		];
 
-		if ( isset($input['tags']) ) {
-			$input['tags'] = $this->tag->createOrUpdate($input['tags']);
+		$tags = $request->get('tag_list');
+
+		if ( isset($tags) ) {
+			foreach($tags as $key => $tag)
+			{
+				if (! is_numeric($tag))
+				{
+					$newTag = new Tag();
+			        $newTag->name = $tag;
+			        $newTag->slug = $tag;
+			        $newTag->save();
+					$tags[$key] = $newTag->id;
+				}
+			}
 		}
 
-		$this->post->update($input);
+		$post->user_id = \Auth::user()->id;
+		$post->title = $input['title'];
+		$post->markdown = $input['markdown'];
+		$post->status = $input['status'];
+		if( $input['status'] ) {
+			$post->published_at = time();
+		}
+		$post->update();
+
+		if (isset($tags)) {
+			$post->tags()->sync($tags);
+		}
 
 		return redirect()->to('posts');
 	}
@@ -108,9 +153,10 @@ class PostsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Post $post)
 	{
-		//
+		$post->delete();
+		return redirect()->to('posts');
 	}
 
 }
