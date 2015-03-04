@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-{!! Form::open(array('route' => ['posts.store'], 'method' => 'POST', 'role' => 'form')) !!}
+{!! Form::open(['route' => ['posts.store'], 'method' => 'POST', 'role' => 'form', 'files' => true]) !!}
 <div class="container-fluid" ng-controller="EditorController">
 	<div class="row">
 		<div class="col-md-12">
@@ -67,7 +67,7 @@
 				<div class="fileinput fileinput-new" data-provides="fileinput">
 					<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
 					<div>
-						<span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+						<span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="file"></span>
 						<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 					</div>
 				</div>

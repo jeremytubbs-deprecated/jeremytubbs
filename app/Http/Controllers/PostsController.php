@@ -59,11 +59,20 @@ class PostsController extends Controller {
 				}
 			}
 		}
+		$file = $request->file('file');
+
+		if ($request->hasFile('file'))
+		{
+			$destinationPath = 'images/';
+			$filename = $file->getClientOriginalName();
+			$request->file('file')->move($destinationPath, $filename);
+		}
 
 		$post = new Post();
 		$post->user_id = \Auth::user()->id;
 		$post->title = $input['title'];
 		$post->slug = $input['title'];
+		$post->image = $filename;
 		$post->markdown = $input['markdown'];
 		$post->status = $input['status'];
 		if( $input['status'] ) {
