@@ -9,7 +9,7 @@
 <div class="container-fluid" ng-controller="EditorController">
 	<div class="row">
 		<div class="col-md-12">
-			<input class="form-control" type="text" name="title" placeholder="Title"/>
+			<input class="form-control" type="text" name="title" ng-model="editor.title" placeholder="Title"/>
 		</div>
 	</div>
 	<div class="row editor-info">
@@ -61,9 +61,8 @@
 </div>
 <div class="footer-lower">
 	<div class="container-fluid">
-		Meta Fields and Uploads
 		<div class="row">
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="fileinput fileinput-new" data-provides="fileinput">
 					<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
 					<div>
@@ -72,6 +71,12 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+	    			<label for="meta_title">Meta Title</label>
+	    			<input type="text" class="form-control" id="meta_title" name="meta_title"/>
+	  			</div>
+  			</div>
 		</div>
 	</div>
 </div>
