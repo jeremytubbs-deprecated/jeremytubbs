@@ -1,8 +1,8 @@
 @extends('app')
 
 @section('content')
-<div class="row">
-	<div class="col-md-offset-3 col-md-6">
+<div class="uk-grid">
+	<div class="uk-container-center">
 		<h1>Contact.</h1>
 
 		@if (count($errors) > 0)
@@ -16,18 +16,19 @@
 		</div>
 		@endif
 
-		{!! Form::open(array('route' => 'pages.contact', 'id' => 'contact-form')) !!}
-			<div class="form-group">
-				<input type="text" name="name" class="form-control" placeholder="Your Name" value="{{ old('name') }}" required>
+		{!! Form::open(array('route' => 'pages.contact', 'id' => 'contact-form', 'class' => 'uk-form')) !!}
+			<div class="uk-form-row">
+				<input type="text" name="name" class="uk-form-width-medium" placeholder="Your Name" value="{{ old('name') }}" required>
 			</div>
-			<div class="form-group">
-				<input type="email" name="email" class="form-control" placeholder="email@example.com" value="{{ old('email') }}" required>
+			<div class="uk-form-row">
+				<input type="email" name="email" class="uk-form-width-medium" placeholder="email@example.com" value="{{ old('email') }}" required>
 			</div>
-			<div class="form-group">
-				<textarea class="form-control" name="message" rows="6" placeholder="Your Message..." required>{{ old('message') }}</textarea>
+			<div class="uk-form-row">
+				<textarea name="message" rows="6" class="uk-form-width-large" placeholder="Your Message..." required>{{ old('message') }}</textarea>
 			</div>
-
-			<button class="btn pull-right" type="submit">Send Message</button>
+			<div class="uk-form-row">
+				<button class="uk-button uk-float-right" type="submit">Send Message</button>
+			</div>
 		{!! Form::close() !!}
 	</div>
 </div>

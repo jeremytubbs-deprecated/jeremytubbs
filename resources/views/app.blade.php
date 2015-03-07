@@ -17,17 +17,13 @@
 	<![endif]-->
 
 </head>
-@section('ngApp')
+
 <body>
-@show
 	@include('partials.nav')
-	<div class="container-fluid">
 	@yield('content')
-	</div>
 	@yield('footer')
 	<!-- Scripts -->
-	<script src="/js/vendor/jquery.js"></script>
-	<script src="/js/vendor/bootstrap.js"></script>
+	<script src="/js/vendor.js"></script>
 	@yield('scripts')
 </body>
 </html>
