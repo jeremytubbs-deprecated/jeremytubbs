@@ -14,10 +14,11 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass-official": "latest",
     "jquery": "latest",
-    "angular-ui-codemirror": "~0.2.*",
-    "angular": "~1.3.*",
-    "commonmark": "~0.17.1"
+    "commonmark": "~0.17.1",
+    "uikit": "~2.17.0",
+    "codemirror": "~5.0.0",
+    "marked": "~0.3.3",
+    "select2": "~4.0.*"
   }
 }
