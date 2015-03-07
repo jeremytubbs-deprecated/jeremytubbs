@@ -14,7 +14,10 @@ var elixir = require('laravel-elixir');
 // only move files to public for now; minify later
 elixir(function(mix) {
     mix.sass('main.scss');
-    mix.sass('admin.scss');
+    mix.styles([
+        "admin/codemirror.css",
+        "admin/select2.css"
+    ], 'public/css/admin.css');
     mix.scripts(['vendor/jquery.js', 'vendor/uikit/uikit.js'], 'public/js/vendor.js');
     mix.scripts([
         "admin/codemirror/codemirror.js",
