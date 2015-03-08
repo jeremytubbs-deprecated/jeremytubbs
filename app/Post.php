@@ -16,17 +16,8 @@ class Post extends Model {
     {
         $slug = Str::slug($title);
     	$slugCount = count($this->whereRaw("slug REGEXP '^{$slug}(-[0-9]*)?$'")->get());
-    	$this->attributes['slug'] = ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
+    	$this->attributes['slug'] = ($slugCount > 0 && $this->title != $title) ? "{$slug}-{$slugCount}" : $slug;
     }
-
-	public function getPublishedAttribute() {
-		if($this->status = 1) return 'true';
-		return 'false';
-	}
-	public function getPublishedTextAttribute() {
-		if($this->status = 1) return 'Publish';
-		return 'Save Draft';
-	}
 
 	public function getTagListAttribute() {
 		return $this->tags->lists('id');
