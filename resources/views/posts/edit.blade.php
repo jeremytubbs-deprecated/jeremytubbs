@@ -5,83 +5,57 @@
 @endsection
 
 @section('content')
-{!! Form::open(array('action' => array('PostsController@update', $post->id), 'method' => 'PUT', 'role' => 'form')) !!}
-<div class="container-fluid" ng-controller="EditorController">
-	<div class="row">
-		<div class="col-md-12">
-			<input class="form-control" type="text" name="title" ng-model="editor.title" ng-init="editor.title='{{$post->title}}'" placeholder="Title"/>
+<div class="uk-container uk-container-center">
+{!! Form::open(['action' => ['PostsController@update', $post->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'uk-form uk-width-medium-1-1']) !!}
+	<div class="uk-form-row">
+		<input class="uk-width-medium-1-2" type="text" name="title" value="{{$post->title}}" placeholder="Title"/>
+		<div class="uk-form-icon uk-float-right">
+			<i class="uk-icon-calendar"></i>
+			<input type="text" name="published_at" placeholder="Publication Date" value="{{$post->published_at}}" data-uk-datepicker="{weekstart:0, format:'YYYY-MM-DD'}">
 		</div>
 	</div>
-	<div class="row editor-info">
-		<div class="col-md-12">
-			<div class="pull-right"><span ng-bind="countOf(editor.text)"></span> Words</div>
+	<div class="uk-form-row uk-margin-bottom">
+		<textarea data-uk-htmleditor="{markdown:true}" name="markdown">{{$post->markdown}}</textarea>
+	</div>
+	<div class="uk-form-row">
+		{!! Form::select('tag_list[]', $tags, $post->tagList, ['id' => 'tag-list', 'class' => 'uk-width-medium-1-2 uk-margin-bottom', 'multiple']) !!}
+		<div class="uk-clearfix uk-float-right">
+			<a class="uk-button uk-button-link" data-uk-toggle="{target:'#meta'}"><i class="uk-icon-cog"></i></a>
+			<button class="uk-button" type="submit" name="status" value="0">Save Draft</button>
+			<button class="uk-button" type="submit" name="status" value="1">Publish</button>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-6 editor">
-			<textarea class="form-control" name="commonmark" ng-model="editor.text" ng-init="editor.text='{{$post->markdown}}'" ui-codemirror ui-codemirror-opts="editorOptions"></textarea>
+	<div id="meta" class="uk-hidden">
+		<div class="uk-form-row">
+			<input type="file" name="file">
 		</div>
-		<div class="col-md-6 preview">
-			<div class="editor-output" ng-bind-html="editor.text | commonmark"></div>
-		</div>
-	</div>
-</div>
-@endsection
-
-@section('footer')
-<div class="footer-menu">
-	<div class="container-fluid">
-		<div class="row" ng-controller="FooterController" ng-init="init('{{$post->publishedText}}', {{$post->published}})">
-			<div class="col-md-8" style="margin-top: 13px; height: 19px;">
-				<div class="form-group">
-				{!! Form::select('tag_list[]', $tags, $post->tagList, ['id' => 'tag-list', 'class' => 'form-control', 'multiple']) !!}
-				</div>
+		<div class="uk-form-row uk-width-medium-1-2">
+			<label class="uk-form-label">Meta Title</label>
+			<div class="uk-form-controls">
+				<input type="text" name="meta_title" value="{{$post->meta_title}}">
 			</div>
-			<div class="col-md-4">
-				<div class="btn-group pull-right dropup">
-					<button type="submit" class="btn btn-danger" ng-show="submitStatus"><span ng-bind="submitText"></span></button>
-					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" ng-show="submitStatus">
-						<span class="caret"></span>
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-					<button type="submit" class="btn btn-info" ng-hide="submitStatus"><span ng-bind="submitText"></span></button>
-					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" ng-hide="submitStatus">
-						<span class="caret"></span>
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" ng-click="updateSubmit('Publish'); submitStatus = !submitStatus">Publish</a></li>
-						<li><a href="#" ng-click="updateSubmit('Save Draft'); submitStatus = !submitStatus">Save Draft</a></li>
-					</ul>
-				</div>
-				<input type="hidden" name="status" id="status" value="@{{ submitStatus }}"/>
+		</div>
+		<div class="uk-form-row">
+			<label class="uk-form-label">Meta Description</label>
+			<div class="uk-form-controls">
+				<input type="text" name="meta_description" value="{{$post->meta_description}}">
 			</div>
 		</div>
 	</div>
-</div>
-<div class="footer-lower">
-	<div class="container-fluid">
- 		Meta Fields and Uploads
- 	</div>
-</div>
 {!! Form::close() !!}
+</div>
 @endsection
 
 @section('styles')
-	<link href="/css/posts/codemirror.css" rel="stylesheet">
-	<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/css/select2.min.css" rel="stylesheet">
+	<link href="/css/admin.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
-	<script src="/js/angular/angular.js"></script>
-	<script src="/js/apps/postsApp.js"></script>
-	<script src="/js/posts/codemirror.js"></script>
-	<script src="/js/posts/ui-codemirror.js"></script>
-	<script src="/js/posts/commonmark.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
+	<script src="/js/admin.js"></script>
 	<script>
 		$('#tag-list').select2({
-			tags: true
+			tags: true,
+			placeholder: 'Select some tags...'
 		});
 	</script>
 @endsection

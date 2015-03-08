@@ -15,7 +15,7 @@
 		<textarea data-uk-htmleditor="{markdown:true}" name="markdown"></textarea>
 	</div>
 	<div class="uk-form-row">
-		{!! Form::select('tag_list[]', $tags, null, ['id' => 'tag-list', 'class' => 'uk-width-medium-1-2', 'multiple']) !!}
+		{!! Form::select('tag_list[]', $tags, null, ['id' => 'tag-list', 'class' => 'uk-width-medium-1-2 uk-margin-bottom', 'multiple']) !!}
 		<div class="uk-clearfix uk-float-right">
 			<a class="uk-button uk-button-link" data-uk-toggle="{target:'#meta'}"><i class="uk-icon-cog"></i></a>
 			<button class="uk-button" type="submit" name="status" value="0">Save Draft</button>
