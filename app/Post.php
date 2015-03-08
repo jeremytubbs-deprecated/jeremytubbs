@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class Post extends Model {
 
@@ -10,6 +11,10 @@ class Post extends Model {
 
 	public function tags() {
         return $this->belongsToMany('App\Tag');
+    }
+
+    public function user() {
+        return $this->belongsTo('App\User');
     }
 
 	public function setSlugAttribute($title)
@@ -22,4 +27,9 @@ class Post extends Model {
 	public function getTagListAttribute() {
 		return $this->tags->lists('id');
 	}
+
+	public function getPublishedAttribute() {
+		return $this->published_at->diffForHumans();
+	}
+
 }

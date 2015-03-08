@@ -16,7 +16,8 @@ Route::group(['middleware' => ['auth', 'admin']], function()
 });
 
 // posts pages
-Route::resource('posts', 'PostsController', ['only' => ['index', 'show']]);
+Route::get('posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
+Route::get('posts/{slug}', ['as' => 'posts.show', 'uses' => 'PostsController@show']);
 
 // Route::resource('projects', 'ProjectsController');
 // Route::get('tags/{tag}', 'TagsController@index');

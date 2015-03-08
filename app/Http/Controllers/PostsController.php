@@ -4,7 +4,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
-use Michelf\Markdown;
 
 use Illuminate\Http\Request;
 
@@ -17,7 +16,7 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::with('tags')->orderBy('created_at', 'DESC')->get();
+		$posts = Post::with('tags')->where('status', '=', 1)->orderBy('published_at', 'DESC')->get();
 		return view('posts.index', compact('posts'));
 	}
 
@@ -39,12 +38,14 @@ class PostsController extends Controller {
 	 */
 	public function store(Request $request)
 	{
+		$parsedown = new \Parsedown();
+
 		// assign request to input array
 		$input = [
 			'title' => $request->get('title'),
 			'published_at' => $request->get('published_at'),
 			'markdown' => $request->get('markdown'),
-			'html' => Markdown::defaultTransform($request->get('markdown')),
+			'html' => $parsedown->text($request->get('markdown')),
 			'status' => $request->get('status'),
 			'meta_title' => $request->get('meta_title'),
 			'meta_description' => $request->get('meta_description')
@@ -104,8 +105,9 @@ class PostsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Post $post)
+	public function show($slug)
 	{
+		$post = Post::where('slug', '=', $slug)->with('user', 'tags')->firstOrFail();
 		return view('posts.show', compact('post'));
 	}
 
@@ -129,12 +131,14 @@ class PostsController extends Controller {
 	 */
 	public function update(Request $request, Post $post)
 	{
+		$parsedown = new \Parsedown();
+
 		// assign request to input array
 		$input = [
 			'title' => $request->get('title'),
 			'published_at' => $request->get('published_at'),
 			'markdown' => $request->get('markdown'),
-			'html' => Markdown::defaultTransform($request->get('markdown')),
+			'html' => $parsedown->text($request->get('markdown')),
 			'status' => $request->get('status'),
 			'meta_title' => $request->get('meta_title'),
 			'meta_description' => $request->get('meta_description')
