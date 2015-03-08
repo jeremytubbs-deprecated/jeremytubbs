@@ -16,9 +16,13 @@ elixir(function(mix) {
     mix.sass('main.scss');
     mix.styles([
         "admin/codemirror.css",
-        "admin/select2.css"
+        "admin/select2.css",
     ], 'public/css/admin.css');
-    mix.scripts(['vendor/jquery.js', 'vendor/uikit/uikit.js'], 'public/js/vendor.js');
+    mix.scripts([
+        'vendor/jquery.js',
+        'vendor/uikit/uikit.js',
+        'vendor/uikit/components/datepicker.js'
+    ], 'public/js/vendor.js');
     mix.scripts([
         "admin/codemirror/codemirror.js",
         "admin/codemirror/mode/markdown.js",
@@ -26,7 +30,8 @@ elixir(function(mix) {
         "admin/codemirror/mode/gfm.js",
         "admin/codemirror/addon/overlay.js",
         "admin/marked.js",
-        "vendor/uikit/components/htmleditor.js"
+        "vendor/uikit/components/htmleditor.js",
+        "admin/select2.js"
     ], 'public/js/admin.js');
 });
 

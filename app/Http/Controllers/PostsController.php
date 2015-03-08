@@ -6,7 +6,6 @@ use App\Post;
 use App\Tag;
 
 use Illuminate\Http\Request;
-use League\CommonMark\CommonMarkConverter;
 
 class PostsController extends Controller {
 
@@ -39,13 +38,11 @@ class PostsController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$converter = new CommonMarkConverter();
 
 		$input = [
 			'title' => $request->get('title'),
-			'markdown' => $request->get('commonmark'),
-			'html' => $converter->convertToHtml($request->get('commonmark')),
-			'status' => $request->get('status') == 'true' ? 1 : 0
+			'markdown' => $request->get('markdown'),
+			'status' => $request->get('status')
 		];
 
 		$tags = $request->get('tag_list');
@@ -78,7 +75,7 @@ class PostsController extends Controller {
 		$post->slug = $input['title'];
 		$post->image = $filename;
 		$post->markdown = $input['markdown'];
-		$post->html = $input['html'];
+		// $post->html = $input['html'];
 		$post->status = $input['status'];
 		if( $input['status'] ) {
 			$post->published_at = time();
@@ -125,7 +122,7 @@ class PostsController extends Controller {
 	{
 		$input = [
 			'title' => $request->get('title'),
-			'markdown' => $request->get('commonmark'),
+			'markdown' => $request->get('markdown'),
 			'status' => $request->get('status') == 'true' ? 1 : 0
 		];
 
