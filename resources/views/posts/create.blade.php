@@ -35,7 +35,7 @@
 		<div class="uk-form-row">
 			<label class="uk-form-label">Meta Description</label>
 			<div class="uk-form-controls">
-				<input type="text" name="meta_desc">
+				<input type="text" name="meta_description">
 			</div>
 		</div>
 	</div>

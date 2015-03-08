@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
+use Michelf\Markdown;
 
 use Illuminate\Http\Request;
 
@@ -38,18 +39,23 @@ class PostsController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-
+		// assign request to input array
 		$input = [
 			'title' => $request->get('title'),
+			'published_at' => $request->get('published_at'),
 			'markdown' => $request->get('markdown'),
-			'status' => $request->get('status')
+			'html' => Markdown::defaultTransform($request->get('markdown')),
+			'status' => $request->get('status'),
+			'meta_title' => $request->get('meta_title'),
+			'meta_description' => $request->get('meta_description')
 		];
 
+		// do tag stuff
 		$tags = $request->get('tag_list');
-
 		if ( isset($tags) ) {
 			foreach($tags as $key => $tag)
 			{
+				// if tag is NAN create a new tag
 				if (! is_numeric($tag))
 				{
 					$newTag = new Tag();
@@ -60,8 +66,9 @@ class PostsController extends Controller {
 				}
 			}
 		}
-		$file = $request->file('file');
 
+		// do file stuff
+		$file = $request->file('file');
 		if ($request->hasFile('file'))
 		{
 			$destinationPath = 'images/';
@@ -69,19 +76,21 @@ class PostsController extends Controller {
 			$request->file('file')->move($destinationPath, $filename);
 		}
 
+		// create new post
 		$post = new Post();
 		$post->user_id = \Auth::user()->id;
 		$post->title = $input['title'];
 		$post->slug = $input['title'];
-		$post->image = $filename;
+		$post->image = isset($filename) ? $filename : null;
 		$post->markdown = $input['markdown'];
-		// $post->html = $input['html'];
+		$post->html = $input['html'];
 		$post->status = $input['status'];
-		if( $input['status'] ) {
-			$post->published_at = time();
-		}
+		$post->meta_title = $input['meta_title'];
+		$post->meta_description = $input['meta_description'];
+		$post->published_at = $input['published_at'];
 		$post->save();
 
+		// if tag sync tags
 		if (isset($tags)) {
 			$post->tags()->sync($tags);
 		}
