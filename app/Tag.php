@@ -12,6 +12,11 @@ class Tag extends Model {
         return $this->belongsToMany('App\Post');
     }
 
+    public function projects()
+    {
+        return $this->belongsToMany('App\Project');
+    }
+
     public function setSlugAttribute($name)
     {
         $slug = Str::slug($name);

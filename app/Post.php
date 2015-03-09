@@ -9,12 +9,24 @@ class Post extends Model {
 	protected $fillable = [];
 	protected $dates = ['published_at'];
 
-	public function tags() {
+	public function tags()
+	{
         return $this->belongsToMany('App\Tag');
     }
 
-    public function user() {
+    public function category()
+    {
+        return $this->belongsTo('App\Catagory');
+    }
+
+    public function user()
+    {
         return $this->belongsTo('App\User');
+    }
+
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
     }
 
 	public function setSlugAttribute($title)
@@ -24,11 +36,13 @@ class Post extends Model {
     	$this->attributes['slug'] = ($slugCount > 0 && $this->title != $title) ? "{$slug}-{$slugCount}" : $slug;
     }
 
-	public function getTagListAttribute() {
+	public function getTagListAttribute()
+	{
 		return $this->tags->lists('id');
 	}
 
-	public function getPublishedAttribute() {
+	public function getPublishedAttribute()
+	{
 		return $this->published_at->diffForHumans();
 	}
 
