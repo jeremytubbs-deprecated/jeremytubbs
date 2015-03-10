@@ -1,6 +1,5 @@
 @extends('app')
 
-
 @section('content')
 <div class="uk-container uk-container-center">
 	{!! Form::open(['route' => ['posts.store'], 'method' => 'POST', 'role' => 'form', 'files' => true, 'class' => 'uk-form uk-width-medium-1-1']) !!}

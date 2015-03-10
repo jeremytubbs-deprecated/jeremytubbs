@@ -16,7 +16,8 @@ class ProjectsController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$projects = Project::with('tags')->where('status', '=', 1)->orderBy('started_at', 'ASC')->get();
+		return view('projects.index', compact('projects'));
 	}
 
 	/**

@@ -1,9 +1,5 @@
 @extends('app')
 
-@section('ngApp')
-<body ng-app="postsApp">
-@endsection
-
 @section('content')
 <div class="uk-container uk-container-center">
 {!! Form::open(['action' => ['PostsController@update', $post->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'uk-form uk-width-medium-1-1']) !!}
