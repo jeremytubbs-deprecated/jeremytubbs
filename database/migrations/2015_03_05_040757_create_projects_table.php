@@ -19,7 +19,7 @@ class CreateProjectsTable extends Migration {
 			$table->integer('category_id')->nullable();
 			$table->string('title')->unique();
 			$table->string('slug')->unique();
-			$table->string('image')->nullable();
+			$table->string('cover_image')->nullable();
 			$table->mediumText('markdown')->nullable();
 			$table->mediumText('html')->nullable();
 			$table->boolean('featured')->default(0);

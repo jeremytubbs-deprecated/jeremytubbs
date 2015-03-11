@@ -82,7 +82,7 @@ class PostsController extends Controller {
 		$post->user_id = \Auth::user()->id;
 		$post->title = $input['title'];
 		$post->slug = $input['title'];
-		$post->image = isset($filename) ? $filename : null;
+		$post->cover_image = isset($filename) ? $filename : null;
 		$post->markdown = $input['markdown'];
 		$post->html = $input['html'];
 		$post->status = $input['status'];
@@ -174,7 +174,7 @@ class PostsController extends Controller {
 		$post->user_id = \Auth::user()->id;
 		$post->title = $input['title'];
 		$post->slug = $input['title'];
-		$post->image = isset($filename) ? $filename : null;
+		$post->cover_image = isset($filename) ? $filename : null;
 		$post->markdown = $input['markdown'];
 		$post->html = $input['html'];
 		$post->status = $input['status'];

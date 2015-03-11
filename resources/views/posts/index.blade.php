@@ -13,7 +13,7 @@
 					<br>
 					<span><i class="uk-icon-tags"></i>
 						@foreach($post->tags as $tag)
-							{{ $tag->name }}
+							#{{ $tag->name }}
 						@endforeach
 					</span>
 				</p>
