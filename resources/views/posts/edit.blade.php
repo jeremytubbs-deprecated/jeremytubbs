@@ -26,15 +26,9 @@
 			<input type="file" name="file">
 		</div>
 		<div class="uk-form-row uk-width-medium-1-2">
-			<label class="uk-form-label">Meta Title</label>
+			<label class="uk-form-label">Summary</label>
 			<div class="uk-form-controls">
-				<input type="text" name="meta_title" value="{{$post->meta_title}}">
-			</div>
-		</div>
-		<div class="uk-form-row">
-			<label class="uk-form-label">Meta Description</label>
-			<div class="uk-form-controls">
-				<input type="text" name="meta_description" value="{{$post->meta_description}}">
+				<input type="text" name="summary" value="{{$post->summary}}">
 			</div>
 		</div>
 	</div>

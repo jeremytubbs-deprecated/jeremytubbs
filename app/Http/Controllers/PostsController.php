@@ -48,7 +48,7 @@ class PostsController extends Controller {
 			'html' => $parsedown->text($request->get('markdown')),
 			'status' => $request->get('status'),
 			'meta_title' => $request->get('meta_title'),
-			'meta_description' => $request->get('meta_description')
+			'summary' => $request->get('summary')
 		];
 
 		// do tag stuff
@@ -86,8 +86,7 @@ class PostsController extends Controller {
 		$post->markdown = $input['markdown'];
 		$post->html = $input['html'];
 		$post->status = $input['status'];
-		$post->meta_title = $input['meta_title'];
-		$post->meta_description = $input['meta_description'];
+		$post->summary = $input['summary'];
 		$post->published_at = $input['published_at'];
 		$post->save();
 
@@ -141,7 +140,7 @@ class PostsController extends Controller {
 			'html' => $parsedown->text($request->get('markdown')),
 			'status' => $request->get('status'),
 			'meta_title' => $request->get('meta_title'),
-			'meta_description' => $request->get('meta_description')
+			'summary' => $request->get('summary')
 		];
 
 		// do tag stuff
@@ -178,8 +177,7 @@ class PostsController extends Controller {
 		$post->markdown = $input['markdown'];
 		$post->html = $input['html'];
 		$post->status = $input['status'];
-		$post->meta_title = $input['meta_title'];
-		$post->meta_description = $input['meta_description'];
+		$post->summary = $input['summary'];
 		$post->published_at = $input['published_at'];
 		$post->save();
 

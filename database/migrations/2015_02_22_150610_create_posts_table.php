@@ -20,12 +20,11 @@ class CreatePostsTable extends Migration {
 			$table->string('title');
 			$table->string('slug')->unique();
 			$table->string('cover_image')->nullable();
+			$table->string('summary')->nullable();
 			$table->mediumText('markdown')->nullable();
 			$table->mediumText('html')->nullable();
 			$table->boolean('featured')->default(0);
 			$table->boolean('status')->default(0);
-			$table->string('meta_title')->nullable();
-			$table->string('meta_description')->nullable();
 			$table->timestamp('published_at')->nullable();
 			$table->timestamps();
 		});
