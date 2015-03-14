@@ -23,6 +23,7 @@
 	</div>
 	<div id="meta" class="uk-hidden">
 		<div class="uk-form-row">
+			<label class="uk-form-label">Cover Image</label>
 			<input type="file" name="file">
 		</div>
 		<div class="uk-form-row uk-width-medium-1-2">
