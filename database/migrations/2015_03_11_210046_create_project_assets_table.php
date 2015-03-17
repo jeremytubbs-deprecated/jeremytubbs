@@ -23,7 +23,9 @@ class CreateProjectAssetsTable extends Migration {
 			$table->string('caption')->nullable();
 			$table->string('layout')->default('row');
 			$table->string('width')->default('1-1');
-			$table->string('background_color')->nullable();
+			$table->string('height')->default('height-30');
+			$table->string('font_color')->default('#000');
+			$table->string('background_color')->default('#FFF');
 			$table->string('animation')->default('slide-bottom');
 			$table->timestamps();
 		});

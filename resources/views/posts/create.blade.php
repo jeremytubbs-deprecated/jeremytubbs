@@ -17,8 +17,8 @@
 		{!! Form::select('tag_list[]', $tags, null, ['id' => 'tag-list', 'class' => 'uk-width-medium-1-2 uk-margin-bottom', 'multiple']) !!}
 		<div class="uk-clearfix uk-float-right">
 			<a class="uk-button uk-button-link" data-uk-toggle="{target:'#meta'}"><i class="uk-icon-cog"></i></a>
-			<button class="uk-button" type="submit" name="status" value="0">Save Draft</button>
-			<button class="uk-button" type="submit" name="status" value="1">Publish</button>
+			<button class="uk-button" type="submit" name="published" value="0">Save Draft</button>
+			<button class="uk-button" type="submit" name="published" value="1">Publish</button>
 		</div>
 	</div>
 	<div id="meta" class="uk-hidden">

@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration {
 			$table->mediumText('markdown')->nullable();
 			$table->mediumText('html')->nullable();
 			$table->boolean('featured')->default(0);
-			$table->boolean('status')->default(0);
+			$table->boolean('published')->default(0);
 			$table->timestamp('published_at')->nullable();
 			$table->timestamps();
 		});

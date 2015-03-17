@@ -16,7 +16,7 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::with('tags')->where('status', '=', 1)->orderBy('published_at', 'DESC')->get();
+		$posts = Post::with('tags')->where('published', '=', 1)->orderBy('published_at', 'DESC')->get();
 		return view('posts.index', compact('posts'));
 	}
 
@@ -46,10 +46,23 @@ class PostsController extends Controller {
 			'published_at' => $request->get('published_at'),
 			'markdown' => $request->get('markdown'),
 			'html' => $parsedown->text($request->get('markdown')),
-			'status' => $request->get('status'),
-			'meta_title' => $request->get('meta_title'),
+			'published' => $request->get('published'),
 			'summary' => $request->get('summary')
 		];
+
+
+
+		// create new post
+		$post = new Post();
+		$post->user_id = \Auth::user()->id;
+		$post->title = $input['title'];
+		$post->slug = $input['title'];
+		$post->markdown = $input['markdown'];
+		$post->html = $input['html'];
+		$post->published = $input['published'];
+		$post->summary = $input['summary'];
+		$post->published_at = $input['published_at'];
+		$post->save();
 
 		// do tag stuff
 		$tags = $request->get('tag_list');
@@ -68,32 +81,22 @@ class PostsController extends Controller {
 			}
 		}
 
-		// do file stuff
-		$file = $request->file('file');
-		if ($request->hasFile('file'))
-		{
-			$destinationPath = 'images/';
-			$filename = $file->getClientOriginalName();
-			$request->file('file')->move($destinationPath, $filename);
-		}
-
-		// create new post
-		$post = new Post();
-		$post->user_id = \Auth::user()->id;
-		$post->title = $input['title'];
-		$post->slug = $input['title'];
-		$post->cover_image = isset($filename) ? $filename : null;
-		$post->markdown = $input['markdown'];
-		$post->html = $input['html'];
-		$post->status = $input['status'];
-		$post->summary = $input['summary'];
-		$post->published_at = $input['published_at'];
-		$post->save();
-
 		// if tag sync tags
 		if (isset($tags)) {
 			$post->tags()->sync($tags);
 		}
+
+		// do file stuff
+		$file = $request->file('file');
+		if ($request->hasFile('file'))
+		{
+			$destinationPath = 'images/posts';
+			$filename = $file->getClientOriginalName();
+			$request->file('file')->move($destinationPath, $filename);
+		}
+
+		$post->cover_image = isset($filename) ? $filename : null;
+		$post->save();
 
 		return redirect()->to('posts');
 	}
@@ -138,10 +141,19 @@ class PostsController extends Controller {
 			'published_at' => $request->get('published_at'),
 			'markdown' => $request->get('markdown'),
 			'html' => $parsedown->text($request->get('markdown')),
-			'status' => $request->get('status'),
-			'meta_title' => $request->get('meta_title'),
+			'published' => $request->get('published'),
 			'summary' => $request->get('summary')
 		];
+
+		// update post
+		$post->user_id = \Auth::user()->id;
+		$post->title = $input['title'];
+		$post->slug = $input['title'];
+		$post->markdown = $input['markdown'];
+		$post->html = $input['html'];
+		$post->published = $input['published'];
+		$post->summary = $input['summary'];
+		$post->published_at = $input['published_at'];
 
 		// do tag stuff
 		$tags = $request->get('tag_list');
@@ -160,31 +172,22 @@ class PostsController extends Controller {
 			}
 		}
 
-		// do file stuff
-		$file = $request->file('file');
-		if ($request->hasFile('file'))
-		{
-			$destinationPath = 'images/';
-			$filename = $file->getClientOriginalName();
-			$request->file('file')->move($destinationPath, $filename);
-		}
-
-		// create new post
-		$post->user_id = \Auth::user()->id;
-		$post->title = $input['title'];
-		$post->slug = $input['title'];
-		$post->cover_image = isset($filename) ? $filename : null;
-		$post->markdown = $input['markdown'];
-		$post->html = $input['html'];
-		$post->status = $input['status'];
-		$post->summary = $input['summary'];
-		$post->published_at = $input['published_at'];
-		$post->save();
-
 		// if tag sync tags
 		if (isset($tags)) {
 			$post->tags()->sync($tags);
 		}
+
+		// do file stuff
+		$file = $request->file('file');
+		if ($request->hasFile('file'))
+		{
+			$destinationPath = 'images/posts/';
+			$filename = $file->getClientOriginalName();
+			$request->file('file')->move($destinationPath, $filename);
+		}
+
+		$post->cover_image = isset($filename) ? $filename : null;
+		$post->save();
 
 		return redirect()->to('posts');
 	}
