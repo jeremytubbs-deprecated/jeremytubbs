@@ -21,7 +21,8 @@ elixir(function(mix) {
     mix.scripts([
         'vendor/jquery.js',
         'vendor/uikit/uikit.js',
-        'vendor/uikit/components/datepicker.js'
+        'vendor/uikit/components/datepicker.js',
+        'vendor/uikit/components/upload.js',
     ], 'public/js/vendor.js');
     mix.scripts([
         "admin/codemirror/codemirror.js",
