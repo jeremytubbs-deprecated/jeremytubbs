@@ -41,6 +41,16 @@ class Post extends Model {
 		return $this->tags->lists('id');
 	}
 
+    public function getCategoriesAttribute()
+    {
+        return $this->tags->lists('id', 'name');
+    }
+
+    public function getProjectsAttribute()
+    {
+        return $this->tags->lists('id', 'title');
+    }
+
 	public function getPublishedAttribute()
 	{
 		return $this->published_at->diffForHumans();
