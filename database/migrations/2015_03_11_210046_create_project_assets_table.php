@@ -16,10 +16,10 @@ class CreateProjectAssetsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('project_id')->nullable();
+			$table->integer('cover_id')->nullable();
 			$table->integer('position');
 			$table->string('heading')->nullable();
 			$table->string('body')->nullable();
-			$table->string('image')->nullable();
 			$table->string('caption')->nullable();
 			$table->string('layout')->default('row');
 			$table->string('width')->default('1-1');

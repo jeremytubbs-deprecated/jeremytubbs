@@ -17,10 +17,10 @@ class CreateProjectsTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->nullable();
 			$table->integer('category_id')->nullable();
+			$table->integer('cover_id')->nullable();
 			$table->string('title')->unique();
 			$table->string('medium')->nullable();
 			$table->string('slug')->unique();
-			$table->string('cover_image')->nullable();
 			$table->string('summary')->nullable();
 			$table->string('summary_background_color')->nullable();
 			$table->string('summary_font_color')->nullable();

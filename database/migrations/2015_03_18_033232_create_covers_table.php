@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagsTable extends Migration {
+class CreateCoversTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,11 @@ class CreateTagsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('tags', function(Blueprint $table)
+		Schema::create('covers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('image_id')->nullable();
-			$table->string('name')->unique();
-			$table->string('slug')->unique();
-			$table->string('description')->nullable();
+			$table->string('type'); // image, zoom, video, embed, external
+			$table->string('url');
 			$table->timestamps();
 		});
 	}
@@ -30,7 +28,7 @@ class CreateTagsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('tags');
+		Schema::drop('covers');
 	}
 
 }

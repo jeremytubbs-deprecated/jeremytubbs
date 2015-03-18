@@ -50,8 +50,6 @@ class PostsController extends Controller {
 			'summary' => $request->get('summary')
 		];
 
-
-
 		// create new post
 		$post = new Post();
 		$post->user_id = \Auth::user()->id;
