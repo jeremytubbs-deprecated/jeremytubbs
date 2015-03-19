@@ -13,6 +13,7 @@ Route::group(['middleware' => ['auth', 'admin']], function()
 {
 	Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
 	Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+	Route::resource('covers', 'CoversController', ['only' => ['store', 'update', 'destroy']]);
 });
 
 // posts pages
