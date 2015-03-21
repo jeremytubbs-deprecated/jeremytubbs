@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="uk-container uk-container-center">
+
 	@include('posts.partials.upload')
 
 	{!! Form::open(['route' => ['posts.store'], 'method' => 'POST', 'role' => 'form', 'class' => 'uk-form uk-width-medium-1-1']) !!}
@@ -43,54 +44,70 @@
 	<script src="/js/admin.js"></script>
 	<script>
 
-    $(function(){
-    	$('#tag-list').select2({
+	$(function(){
+		$('#tag-list').select2({
 			tags: true,
 			placeholder: 'Select some tags...'
 		});
 
-    	var token = $('meta[name="csrf-token"]').attr('content');
+		var token = $('meta[name="csrf-token"]').attr('content');
 
-        var progressbar = $("#progressbar"),
-            bar         = progressbar.find('.uk-progress-bar'),
-            settings    = {
+		var progressbar = $("#progressbar"),
+			bar         = progressbar.find('.uk-progress-bar'),
+			settings    = {
 
-            params: {
-	            '_token': token,
-	        },
+			params: {
+				'_token': token
+			},
 
-	        param: 'file',
+			param: 'file',
 
-	        type: 'json',
+			type: 'json',
 
-            action: '{{ route('covers.store') }}', // upload url
+			action: '{{ route('covers.store') }}', // upload url
 
-            allow : '*.(jpg|gif|png)', // allow only images
+			allow : '*.(jpg|gif|png)', // allow only images
 
-            loadstart: function() {
-                bar.css("width", "0%").text("0%");
-                progressbar.removeClass("uk-hidden");
-            },
+			loadstart: function() {
+				bar.css("width", "0%").text("0%");
+				progressbar.removeClass("uk-hidden");
+			},
 
-            progress: function(percent) {
-                percent = Math.ceil(percent);
-                bar.css("width", percent+"%").text(percent+"%");
-            },
+			progress: function(percent) {
+				percent = Math.ceil(percent);
+				bar.css("width", percent+"%").text(percent+"%");
+			},
 
-            allcomplete: function(response) {
+			allcomplete: function(response) {
 
-                bar.css("width", "100%").text("100%");
+				bar.css("width", "100%").text("100%");
 
-                setTimeout(function(){
-                    progressbar.addClass("uk-hidden");
-                }, 250);
-                console.log(response);
-            }
-        };
+				setTimeout(function(){
+					progressbar.addClass("uk-hidden");
+				}, 250);
+				// hide upload area
+				$("#cover-upload").addClass('uk-hidden');
+				$("#cover-show").html("<img src='"+response.src+"'><button id='cover-delete' data-id='"+response.id+"'>Delete</button>");
+			}
+		};
 
-        var select = UIkit.uploadSelect($("#upload-select"), settings),
-            drop   = UIkit.uploadDrop($("#upload-drop"), settings);
-    });
+		var select = UIkit.uploadSelect($("#upload-select"), settings),
+			drop   = UIkit.uploadDrop($("#upload-drop"), settings);
+
+		$('body').on('click','#cover-delete',function(e){
+			e.preventDefault();
+			var id = $(this).data('id');
+			$.ajax({
+				type: "DELETE",
+				url: "/covers/"+id,
+				data: { "_token": token},
+			})
+			.done(function() {
+				$("#cover-show").html('');
+				$("#cover-upload").removeClass('uk-hidden');
+			});
+		});
+	});
 
 </script>
 @endsection

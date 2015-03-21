@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Cover;
 
 use Illuminate\Http\Request;
 
@@ -19,12 +20,16 @@ class CoversController extends Controller {
 		if ($request->hasFile('file'))
 		{
 			$file = $request->file('file');
-			$destinationPath = 'images/uploads/covers';
+			$destinationPath = 'uploads/covers';
 			$filename = $file->getClientOriginalName();
 			$request->file('file')->move($destinationPath, $filename);
-			$src = 'http://' . env('SITE_URL') . '/' . $destinationPath . '/' . $filename;
+			$src = '/' . $destinationPath . '/' . $filename;
 
-			return \Response::json('success', 200);
+			$cover = new Cover();
+			$cover->src = $src;
+			$cover->save();
+
+			return \Response::json($cover, 200);
 		}
 
 		return \Response::json('error', 400);
@@ -49,7 +54,13 @@ class CoversController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$cover = Cover::find($id);
+		if ( \File::exists(public_path() . $cover->src )) {
+			\File::delete(public_path() . $cover->src);
+		}
+		$cover->delete();
+
+		return \Response::json('success', 200);
 	}
 
 }
