@@ -22,6 +22,7 @@ class CoversController extends Controller {
 			$destinationPath = 'images/uploads/covers';
 			$filename = $file->getClientOriginalName();
 			$request->file('file')->move($destinationPath, $filename);
+			$src = 'http://' . env('SITE_URL') . '/' . $destinationPath . '/' . $filename;
 
 			return \Response::json('success', 200);
 		}

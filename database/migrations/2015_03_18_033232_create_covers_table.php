@@ -15,8 +15,8 @@ class CreateCoversTable extends Migration {
 		Schema::create('covers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('type'); // image, zoom, video, embed, external
-			$table->string('url');
+			$table->string('type')->default('image'); // image, zoom, video, iframe
+			$table->string('src');
 			$table->timestamps();
 		});
 	}

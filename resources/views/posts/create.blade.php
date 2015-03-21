@@ -84,7 +84,7 @@
                 setTimeout(function(){
                     progressbar.addClass("uk-hidden");
                 }, 250);
-
+                console.log(response);
             }
         };
 

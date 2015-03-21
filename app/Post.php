@@ -6,6 +6,7 @@ use Carbon\Carbon;
 
 class Post extends Model {
 
+    protected $table = 'posts';
 	protected $fillable = [];
 	protected $dates = ['published_at'];
 
@@ -27,6 +28,11 @@ class Post extends Model {
     public function project()
     {
         return $this->belongsTo('App\Project');
+    }
+
+    public function cover()
+    {
+        return $this->hasOne('App\Cover');
     }
 
 	public function setSlugAttribute($title)
