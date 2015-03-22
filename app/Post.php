@@ -7,7 +7,7 @@ use Carbon\Carbon;
 class Post extends Model {
 
     protected $table = 'posts';
-	protected $fillable = [];
+	protected $fillable = ['title', 'featured', 'summary'];
 	protected $dates = ['published_at'];
 
 	public function tags()
@@ -17,7 +17,7 @@ class Post extends Model {
 
     public function category()
     {
-        return $this->belongsTo('App\Catagory');
+        return $this->belongsTo('App\Category');
     }
 
     public function user()
@@ -32,7 +32,7 @@ class Post extends Model {
 
     public function cover()
     {
-        return $this->hasOne('App\Cover');
+        return $this->belongsTo('App\Cover');
     }
 
 	public function setSlugAttribute($title)

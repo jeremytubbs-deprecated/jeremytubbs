@@ -15,24 +15,24 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('main.scss');
     mix.styles([
-        "admin/codemirror.css",
-        "admin/select2.css",
+        'admin/codemirror.css',
+        'admin/select2.css',
     ], 'public/css/admin.css');
     mix.scripts([
         'vendor/jquery.js',
         'vendor/uikit/uikit.js',
         'vendor/uikit/components/datepicker.js',
-        'vendor/uikit/components/upload.js',
+        'vendor/uikit/components/upload.js'
     ], 'public/js/vendor.js');
     mix.scripts([
-        "admin/codemirror/codemirror.js",
-        "admin/codemirror/mode/markdown.js",
-        "admin/codemirror/mode/xml.js",
-        "admin/codemirror/mode/gfm.js",
-        "admin/codemirror/addon/overlay.js",
-        "admin/marked.js",
-        "vendor/uikit/components/htmleditor.js",
-        "admin/select2.js"
+        'admin/codemirror/codemirror.js',
+        'admin/codemirror/mode/markdown.js',
+        'admin/codemirror/mode/xml.js',
+        'admin/codemirror/mode/gfm.js',
+        'admin/codemirror/addon/overlay.js',
+        'admin/marked.js',
+        'vendor/uikit/components/htmleditor.js',
+        'admin/select2.js'
     ], 'public/js/admin.js');
 });
 

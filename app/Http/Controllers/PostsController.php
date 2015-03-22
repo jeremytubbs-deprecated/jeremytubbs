@@ -4,6 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
+use App\Category;
+use App\Project;
 
 use Illuminate\Http\Request;
 
@@ -28,7 +30,9 @@ class PostsController extends Controller {
 	public function create()
 	{
 		$tags = Tag::lists('name', 'id');
-		return view('posts.create', compact('tags'));
+		$categories = Category::lists('name', 'id');
+		$projects = Project::lists('title', 'id');
+		return view('posts.create', compact('tags', 'categories', 'projects'));
 	}
 
 	/**
@@ -43,10 +47,14 @@ class PostsController extends Controller {
 		// assign request to input array
 		$input = [
 			'title' => $request->get('title'),
-			'published_at' => $request->get('published_at'),
+			'cover_id' => $request->get('cover_id'),
+			'category_id' => $request->get('category_id'),
+			'project_id' => $request->get('project_id'),
 			'markdown' => $request->get('markdown'),
 			'html' => $parsedown->text($request->get('markdown')),
+			'featured' => $request->has('featured') ? 1 : 0,
 			'published' => $request->get('published'),
+			'published_at' => $request->get('published_at'),
 			'summary' => $request->get('summary')
 		];
 
@@ -55,11 +63,15 @@ class PostsController extends Controller {
 		$post->user_id = \Auth::user()->id;
 		$post->title = $input['title'];
 		$post->slug = $input['title'];
+		$post->cover_id = $input['cover_id'];
+		$post->category_id = $input['category_id'];
+		$post->project_id = $input['project_id'];
 		$post->markdown = $input['markdown'];
 		$post->html = $input['html'];
+		$post->featured = $input['featured'];
 		$post->published = $input['published'];
-		$post->summary = $input['summary'];
 		$post->published_at = $input['published_at'];
+		$post->summary = $input['summary'];
 		$post->save();
 
 		// do tag stuff
@@ -84,18 +96,6 @@ class PostsController extends Controller {
 			$post->tags()->sync($tags);
 		}
 
-		// do file stuff
-		$file = $request->file('file');
-		if ($request->hasFile('file'))
-		{
-			$destinationPath = 'images/posts';
-			$filename = $file->getClientOriginalName();
-			$request->file('file')->move($destinationPath, $filename);
-		}
-
-		$post->cover_image = isset($filename) ? $filename : null;
-		$post->save();
-
 		return redirect()->to('posts');
 	}
 
@@ -107,7 +107,7 @@ class PostsController extends Controller {
 	 */
 	public function show($slug)
 	{
-		$post = Post::where('slug', '=', $slug)->with('user', 'tags')->firstOrFail();
+		$post = Post::where('slug', '=', $slug)->with('user', 'tags', 'project', 'cover', 'category')->firstOrFail();
 		return view('posts.show', compact('post'));
 	}
 
@@ -120,7 +120,9 @@ class PostsController extends Controller {
 	public function edit(Post $post)
 	{
 		$tags = Tag::lists('name', 'id');
-		return view('posts.edit', compact('post', 'tags'));
+		$categories = Category::lists('name', 'id');
+		$projects = Project::lists('title', 'id');
+		return view('posts.edit', compact('post', 'tags', 'categories', 'projects'));
 	}
 
 	/**
@@ -136,10 +138,14 @@ class PostsController extends Controller {
 		// assign request to input array
 		$input = [
 			'title' => $request->get('title'),
-			'published_at' => $request->get('published_at'),
+			'cover_id' => $request->get('cover_id'),
+			'category_id' => $request->get('category_id'),
+			'project_id' => $request->get('project_id'),
 			'markdown' => $request->get('markdown'),
 			'html' => $parsedown->text($request->get('markdown')),
+			'featured' => $request->has('featured') ? 1 : 0,
 			'published' => $request->get('published'),
+			'published_at' => $request->get('published_at'),
 			'summary' => $request->get('summary')
 		];
 
@@ -147,11 +153,16 @@ class PostsController extends Controller {
 		$post->user_id = \Auth::user()->id;
 		$post->title = $input['title'];
 		$post->slug = $input['title'];
+		$post->cover_id = $input['cover_id'];
+		$post->category_id = $input['category_id'];
+		$post->project_id = $input['project_id'];
 		$post->markdown = $input['markdown'];
 		$post->html = $input['html'];
+		$post->featured = $input['featured'];
 		$post->published = $input['published'];
-		$post->summary = $input['summary'];
 		$post->published_at = $input['published_at'];
+		$post->summary = $input['summary'];
+		$post->save();
 
 		// do tag stuff
 		$tags = $request->get('tag_list');
@@ -174,18 +185,6 @@ class PostsController extends Controller {
 		if (isset($tags)) {
 			$post->tags()->sync($tags);
 		}
-
-		// do file stuff
-		$file = $request->file('file');
-		if ($request->hasFile('file'))
-		{
-			$destinationPath = 'images/posts/';
-			$filename = $file->getClientOriginalName();
-			$request->file('file')->move($destinationPath, $filename);
-		}
-
-		$post->cover_image = isset($filename) ? $filename : null;
-		$post->save();
 
 		return redirect()->to('posts');
 	}
