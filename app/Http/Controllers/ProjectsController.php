@@ -40,7 +40,38 @@ class ProjectsController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		//
+		// create new post
+		$project = new Project();
+		$project->user_id = \Auth::user()->id;
+		$project->slug = $request->get('title');
+		$project->html = $request->get('markdown');
+		$project->fill($request->all());
+		$project->featured = $request->has('featured') ? 1 : 0;
+		$project->save();
+
+		// do tag stuff
+		$tags = $request->get('tag_list');
+		if ( isset($tags) ) {
+			foreach($tags as $key => $tag)
+			{
+				// if tag is NAN create a new tag
+				if (! is_numeric($tag))
+				{
+					$newTag = new Tag();
+					$newTag->name = $tag;
+					$newTag->slug = $tag;
+					$newTag->save();
+					$tags[$key] = $newTag->id;
+				}
+			}
+		}
+
+		// if tag sync tags
+		if (isset($tags)) {
+			$project->tags()->sync($tags);
+		}
+
+		return redirect()->to('projects');
 	}
 
 	/**
@@ -76,7 +107,37 @@ class ProjectsController extends Controller {
 	 */
 	public function update(Request $request, Project $project)
 	{
-		//
+		// create new post
+		$project->user_id = \Auth::user()->id;
+		$project->slug = $request->get('title');
+		$project->html = $request->get('markdown');
+		$project->fill($request->all());
+		$project->featured = $request->has('featured') ? 1 : 0;
+		$project->save();
+
+		// do tag stuff
+		$tags = $request->get('tag_list');
+		if ( isset($tags) ) {
+			foreach($tags as $key => $tag)
+			{
+				// if tag is NAN create a new tag
+				if (! is_numeric($tag))
+				{
+					$newTag = new Tag();
+					$newTag->name = $tag;
+					$newTag->slug = $tag;
+					$newTag->save();
+					$tags[$key] = $newTag->id;
+				}
+			}
+		}
+
+		// if tag sync tags
+		if (isset($tags)) {
+			$project->tags()->sync($tags);
+		}
+
+		return redirect()->to('projects');
 	}
 
 	/**

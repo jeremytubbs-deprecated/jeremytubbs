@@ -1,4 +1,4 @@
-@if(isset($post->cover_id))
+@if(isset($post->cover_id) && $post->cover_id != 0)
 	<div id="cover-show">
 		<img src="{{ $post->cover->src }}">
 		<button id="cover-delete" class="uk-button" data-id="{{ $post->cover->id }}">Delete</button>

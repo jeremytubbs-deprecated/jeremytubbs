@@ -42,36 +42,13 @@ class PostsController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		$parsedown = new \Parsedown();
-
-		// assign request to input array
-		$input = [
-			'title' => $request->get('title'),
-			'cover_id' => $request->get('cover_id'),
-			'category_id' => $request->get('category_id'),
-			'project_id' => $request->get('project_id'),
-			'markdown' => $request->get('markdown'),
-			'html' => $parsedown->text($request->get('markdown')),
-			'featured' => $request->has('featured') ? 1 : 0,
-			'published' => $request->get('published'),
-			'published_at' => $request->get('published_at'),
-			'summary' => $request->get('summary')
-		];
-
 		// create new post
 		$post = new Post();
 		$post->user_id = \Auth::user()->id;
-		$post->title = $input['title'];
-		$post->slug = $input['title'];
-		$post->cover_id = $input['cover_id'];
-		$post->category_id = $input['category_id'];
-		$post->project_id = $input['project_id'];
-		$post->markdown = $input['markdown'];
-		$post->html = $input['html'];
-		$post->featured = $input['featured'];
-		$post->published = $input['published'];
-		$post->published_at = $input['published_at'];
-		$post->summary = $input['summary'];
+		$post->slug = $request->get('title');
+		$post->html = $request->get('markdown');
+		$post->fill($request->all());
+		$post->featured = $request->has('featured') ? 1 : 0;
 		$post->save();
 
 		// do tag stuff
@@ -133,35 +110,12 @@ class PostsController extends Controller {
 	 */
 	public function update(Request $request, Post $post)
 	{
-		$parsedown = new \Parsedown();
-
-		// assign request to input array
-		$input = [
-			'title' => $request->get('title'),
-			'cover_id' => $request->get('cover_id'),
-			'category_id' => $request->get('category_id'),
-			'project_id' => $request->get('project_id'),
-			'markdown' => $request->get('markdown'),
-			'html' => $parsedown->text($request->get('markdown')),
-			'featured' => $request->has('featured') ? 1 : 0,
-			'published' => $request->get('published'),
-			'published_at' => $request->get('published_at'),
-			'summary' => $request->get('summary')
-		];
-
 		// update post
 		$post->user_id = \Auth::user()->id;
-		$post->title = $input['title'];
-		$post->slug = $input['title'];
-		$post->cover_id = $input['cover_id'];
-		$post->category_id = $input['category_id'];
-		$post->project_id = $input['project_id'];
-		$post->markdown = $input['markdown'];
-		$post->html = $input['html'];
-		$post->featured = $input['featured'];
-		$post->published = $input['published'];
-		$post->published_at = $input['published_at'];
-		$post->summary = $input['summary'];
+		$post->slug = $request->get('title');
+		$post->html = $request->get('markdown');
+		$post->fill($request->all());
+		$post->featured = $request->has('featured') ? 1 : 0;
 		$post->save();
 
 		// do tag stuff
