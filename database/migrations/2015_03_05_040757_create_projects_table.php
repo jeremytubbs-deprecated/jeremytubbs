@@ -30,9 +30,8 @@ class CreateProjectsTable extends Migration {
 			$table->mediumText('html')->nullable();
 			$table->boolean('featured')->default(0);
 			$table->boolean('published')->default(0);
-			$table->boolean('ongoing')->default(0);
 			$table->timestamp('started_at')->nullable();
-			$table->timestamp('finished_at')->nullable();
+			$table->timestamp('completed_at')->nullable();
 			$table->timestamps();
 		});
 	}

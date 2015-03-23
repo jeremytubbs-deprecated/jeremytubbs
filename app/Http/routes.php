@@ -13,6 +13,7 @@ Route::group(['middleware' => ['auth', 'admin']], function()
 {
 	Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
 	Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+	Route::resource('projects', 'ProjectsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
 	Route::resource('covers', 'CoversController', ['only' => ['store', 'update', 'destroy']]);
 });
 
@@ -20,8 +21,9 @@ Route::group(['middleware' => ['auth', 'admin']], function()
 Route::get('posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
 Route::get('posts/{slug}', ['as' => 'posts.show', 'uses' => 'PostsController@show']);
 
-// Route::resource('projects', 'ProjectsController');
-// Route::get('tags/{tag}', 'TagsController@index');
+// projects pages
+Route::get('projects', ['as' => 'projects.index', 'uses' => 'ProjectsController@index']);
+Route::get('projects/{slug}', ['as' => 'projects.show', 'uses' => 'ProjectsController@show']);
 
 // routes for auth
 Route::get('register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister']);

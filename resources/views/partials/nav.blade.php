@@ -5,9 +5,7 @@
 		</a>
 		<div class="uk-navbar-flip">
 			<ul class="uk-navbar-nav uk-hidden-small">
-				@if(Auth::user() && Auth::user()->hasGroup('admin'))
-					<li><a href="/posts/create">New Post</a></li>
-				@else
+				@if(Auth::user())
 					<li><a href="/contact">Contact</a></li>
 				@endif
 				@if (Auth::guest())
@@ -20,6 +18,8 @@
 						<ul class="uk-nav uk-nav-navbar">
 							@if(Auth::user()->hasGroup('admin'))
 							<li><a href="/admin">Dashboard</a></li>
+							<li><a href="/posts/create">New Post</a></li>
+							<li><a href="/projects/create">Add Project</a></li>
 							@endif
 							<li><a href="/logout">Logout</a></li>
 						</ul>

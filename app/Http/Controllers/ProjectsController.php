@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Project;
 use App\Tag;
+use App\Category;
 
 use Illuminate\Http\Request;
 
@@ -27,7 +28,9 @@ class ProjectsController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		$tags = Tag::lists('name', 'id');
+		$categories = Category::lists('name', 'id');
+		return view('projects.create', compact('tags', 'categories'));
 	}
 
 	/**
@@ -35,7 +38,7 @@ class ProjectsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
 		//
 	}
@@ -46,9 +49,10 @@ class ProjectsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-		//
+		$project = Project::where('slug', '=', $slug)->with('user', 'tags', 'posts', 'cover', 'category')->firstOrFail();
+		return view('projects.show', compact('project'));
 	}
 
 	/**
@@ -57,9 +61,11 @@ class ProjectsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Project $project)
 	{
-		//
+		$tags = Tag::lists('name', 'id');
+		$categories = Category::lists('name', 'id');
+		return view('projects.create', compact('project', 'tags', 'categories'));
 	}
 
 	/**
@@ -68,7 +74,7 @@ class ProjectsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, Project $project)
 	{
 		//
 	}
@@ -79,9 +85,10 @@ class ProjectsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Project $project)
 	{
-		//
+		$project->delete();
+		return redirect()->to('projects');
 	}
 
 }

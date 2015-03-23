@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model {
 
-	protected $dates = ['started_at', 'finished_at'];
+	protected $dates = ['started_at', 'completed_at'];
 
 	public function user()
 	{
@@ -31,9 +31,19 @@ class Project extends Model {
 		return $this->belongsTo('App\Catagory');
 	}
 
-	public function cover()
+    public function cover()
+    {
+        return $this->belongsTo('App\Cover');
+    }
+
+    public function getTagListAttribute()
 	{
-		return $this->hasOne('App\Cover');
+		return $this->tags->lists('id');
 	}
+
+    public function getCategoriesAttribute()
+    {
+        return $this->tags->lists('id', 'name');
+    }
 
 }
