@@ -71,7 +71,7 @@ class ProjectsController extends Controller {
 			$project->tags()->sync($tags);
 		}
 
-		return redirect()->to('projects');
+		return redirect()->to('admin');
 	}
 
 	/**
@@ -137,7 +137,7 @@ class ProjectsController extends Controller {
 			$project->tags()->sync($tags);
 		}
 
-		return redirect()->to('projects');
+		return redirect()->to('admin');
 	}
 
 	/**
@@ -149,7 +149,7 @@ class ProjectsController extends Controller {
 	public function destroy(Project $project)
 	{
 		$project->delete();
-		return redirect()->to('projects');
+		return redirect()->to('admin');
 	}
 
 }

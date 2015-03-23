@@ -4,7 +4,7 @@
 <div class="uk-container uk-container-center">
 	@include('posts.partials.upload')
 
-	{!! Form::open(['route' => ['posts.store'], 'method' => 'POST', 'role' => 'form', 'class' => 'uk-form uk-width-medium-1-1']) !!}
+	{!! Form::open(['route' => ['admin.posts.store'], 'method' => 'POST', 'role' => 'form', 'class' => 'uk-form uk-width-medium-1-1']) !!}
 
 		@include('posts.partials.form')
 

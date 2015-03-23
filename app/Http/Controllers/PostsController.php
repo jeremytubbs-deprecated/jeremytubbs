@@ -73,7 +73,7 @@ class PostsController extends Controller {
 			$post->tags()->sync($tags);
 		}
 
-		return redirect()->to('posts');
+		return redirect()->to('admin');
 	}
 
 	/**
@@ -140,7 +140,7 @@ class PostsController extends Controller {
 			$post->tags()->sync($tags);
 		}
 
-		return redirect()->to('posts');
+		return redirect()->to('admin');
 	}
 
 	/**
@@ -152,7 +152,7 @@ class PostsController extends Controller {
 	public function destroy(Post $post)
 	{
 		$post->delete();
-		return redirect()->to('posts');
+		return redirect()->to('admin');
 	}
 
 }

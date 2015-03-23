@@ -109,7 +109,7 @@ $(function(){
 
 		type: 'json',
 
-		action: '{{ route('covers.store') }}', // upload url
+		action: '{{ route('admin.covers.store') }}', // upload url
 
 		allow : '*.(jpg|gif|png)', // allow only images
 

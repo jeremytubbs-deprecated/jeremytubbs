@@ -4,7 +4,7 @@
 <div class="uk-container uk-container-center">
 	@include('posts.partials.upload')
 
-	{!! Form::model($post, ['action' => ['PostsController@update', $post->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'uk-form uk-width-medium-1-1']) !!}
+	{!! Form::model($post, ['route' => ['admin.posts.update', $post->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'uk-form uk-width-medium-1-1']) !!}
 
 		@include('posts.partials.form')
 

@@ -17,6 +17,7 @@ class CreateCoversTable extends Migration {
 			$table->increments('id');
 			$table->string('type')->default('image'); // image, zoom, video, iframe
 			$table->string('src');
+			$table->boolean('container')->default(0);
 			$table->timestamps();
 		});
 	}

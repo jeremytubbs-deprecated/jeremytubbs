@@ -9,11 +9,12 @@ Route::get('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@get
 Route::post('contact', ['as' => 'pages.contact', 'uses' => 'ContactController@postContact']);
 
 // admin pages
-Route::group(['middleware' => ['auth', 'admin']], function()
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function()
 {
-	Route::get('/admin', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
+	Route::get('/', ['as' => 'admin.home', 'uses' => 'AdminController@home']);
 	Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
 	Route::resource('projects', 'ProjectsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+	Route::resource('projects.assets', 'ProjectAssetsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
 	Route::resource('covers', 'CoversController', ['only' => ['store', 'update', 'destroy']]);
 });
 
