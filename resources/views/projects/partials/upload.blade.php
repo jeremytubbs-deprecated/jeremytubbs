@@ -1,4 +1,4 @@
-@if(isset($project->cover_id))
+@if(isset($project->cover_id) && $project->cover_id != 0)
 	<div id="cover-show">
 		<img src="{{ $project->cover->src }}">
 		<button id="cover-delete" class="uk-button" data-id="{{ $project->cover->id }}">Delete</button>
@@ -6,7 +6,7 @@
 @else
 	<div id="cover-show"></div>
 @endif
-<div id="cover-upload" class="{{ (isset($project->cover_id) && ! is_null($project->cover_id)) ? 'uk-hidden' : '' }}">
+<div id="cover-upload" class="{{ isset($project->cover_id) && $project->cover_id != 0 ? 'uk-hidden' : '' }}">
 	<div id="upload-drop" class="uk-placeholder uk-text-center">
 		<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i>
 		Create cover by dragging an image file here or

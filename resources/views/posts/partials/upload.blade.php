@@ -6,7 +6,7 @@
 @else
 	<div id="cover-show"></div>
 @endif
-<div id="cover-upload" class="{{ (isset($post->cover_id) && ! is_null($post->cover_id)) ? 'uk-hidden' : '' }}">
+<div id="cover-upload" class="{{ isset($post->cover_id) && $post->cover_id != 0 ? 'uk-hidden' : '' }}">
 	<div id="upload-drop" class="uk-placeholder uk-text-center">
 		<i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i>
 		Create cover by dragging an image file here or
